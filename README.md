@@ -89,8 +89,6 @@ The module is available on the [npm](https://www.npmjs.com) registry.
 
 ```sh
 npm install medium-zoom
-# or
-yarn add medium-zoom
 ```
 
 ###### Download
@@ -521,9 +519,9 @@ If that's the case, you can provide a `z-index` value in your CSS:
 
 ## Contributing
 
-- Run `yarn` to install Node dev dependencies
-- Run `yarn start` to build the library in watch mode
-- Run `yarn run storybook` to see your changes at http://localhost:9001
+- Run `bun` to install Node dev dependencies
+- Run `bun start` to build the library in watch mode
+- Run `bun run storybook` to see your changes at http://localhost:9001
 
 Please read the [contributing guidelines](CONTRIBUTING.md) for more detailed explanations.
 

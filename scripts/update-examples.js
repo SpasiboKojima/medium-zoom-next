@@ -8,7 +8,7 @@ const examples = readdirSync('examples')
   .filter(file => statSync(file).isDirectory())
 
 examples.forEach(path => {
-  execSync(`cd ${path} && yarn upgrade medium-zoom@${version}`, {
+  execSync(`cd ${path} && bun upgrade medium-zoom@${version}`, {
     stdio: 'inherit',
   })
 })

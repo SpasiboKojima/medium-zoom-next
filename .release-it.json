@@ -1,12 +1,12 @@
 {
   "increment": "conventional:angular",
   "scripts": {
-    "beforeStart": "yarn run lint && yarn run test --colors && yarn run build && yarn run test:size && yarn run test:cypress"
+    "beforeStart": "bun run lint && bun run test --colors && bun run build && bun run test:size && bun run test:cypress"
   },
   "git": {
     "requireUpstream": false,
     "requireCleanWorkingDir": false,
     "commitMessage": "chore(release): %s",
-    "changelog": "yarn run changelog:update"
+    "changelog": "bun run changelog:update"
   }
 }
