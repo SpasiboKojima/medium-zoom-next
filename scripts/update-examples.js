@@ -1,14 +1,14 @@
-const { readdirSync, statSync } = require('fs')
-const { join } = require('path')
-const { execSync } = require('child_process')
-const { version } = require('../package.json')
+const { readdirSync, statSync } = require('fs');
+const { join } = require('path');
+const { execSync } = require('child_process');
+const { version } = require('../package.json');
 
 const examples = readdirSync('examples')
-  .map(file => join('examples', file))
-  .filter(file => statSync(file).isDirectory())
+	.map((file) => join('examples', file))
+	.filter((file) => statSync(file).isDirectory());
 
-examples.forEach(path => {
-  execSync(`cd ${path} && bun upgrade medium-zoom@${version}`, {
-    stdio: 'inherit',
-  })
-})
+examples.forEach((path) => {
+	execSync(`cd ${path} && bun upgrade medium-zoom@${version}`, {
+		stdio: 'inherit',
+	});
+});

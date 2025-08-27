@@ -1,12 +1,12 @@
 {
-  "increment": "conventional:angular",
-  "scripts": {
-    "beforeStart": "bun run lint && bun run test --colors && bun run build && bun run test:size && bun run test:cypress"
-  },
-  "git": {
-    "requireUpstream": false,
-    "requireCleanWorkingDir": false,
-    "commitMessage": "chore(release): %s",
-    "changelog": "bun run changelog:update"
-  }
+	"increment": "conventional:angular",
+	"scripts": {
+		"beforeStart": "bun run lint && bun run test --colors && bun run build && bun run test:size && bun run test:cypress"
+	},
+	"git": {
+		"requireUpstream": false,
+		"requireCleanWorkingDir": false,
+		"commitMessage": "chore(release): %s",
+		"changelog": "bun run changelog:update"
+	}
 }

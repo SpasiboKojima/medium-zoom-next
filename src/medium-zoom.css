@@ -1,24 +1,24 @@
 .medium-zoom-overlay {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  opacity: 0;
-  transition: opacity 300ms;
-  will-change: opacity;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: 0;
+	transition: opacity 300ms;
+	will-change: opacity;
 }
 
 .medium-zoom--opened .medium-zoom-overlay {
-  cursor: pointer;
-  cursor: zoom-out;
-  opacity: 1;
+	cursor: pointer;
+	cursor: zoom-out;
+	opacity: 1;
 }
 
 .medium-zoom-image {
-  cursor: pointer;
-  cursor: zoom-in;
-  /*
+	cursor: pointer;
+	cursor: zoom-in;
+	/*
     The `transition` is marked as "!important" for the animation to happen
     even though it's overriden by another inline `transition` style attribute.
 
@@ -27,16 +27,16 @@
 
     See https://github.com/francoischalifour/medium-zoom/issues/110
    */
-  transition: transform 300ms cubic-bezier(0.2, 0, 0.2, 1) !important;
+	transition: transform 300ms cubic-bezier(0.2, 0, 0.2, 1) !important;
 }
 
 .medium-zoom-image--hidden {
-  visibility: hidden;
+	visibility: hidden;
 }
 
 .medium-zoom-image--opened {
-  position: relative;
-  cursor: pointer;
-  cursor: zoom-out;
-  will-change: transform;
+	position: relative;
+	cursor: pointer;
+	cursor: zoom-out;
+	will-change: transform;
 }

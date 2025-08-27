@@ -1,5 +1,5 @@
-const { addMatchImageSnapshotPlugin } = require('cypress-image-snapshot/plugin')
+const { addMatchImageSnapshotPlugin } = require('cypress-image-snapshot/plugin');
 
-module.exports = on => {
-  addMatchImageSnapshotPlugin(on)
-}
+module.exports = (on) => {
+	addMatchImageSnapshotPlugin(on);
+};

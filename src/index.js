@@ -1,4 +1,4 @@
-import mediumZoom from './medium-zoom'
-import './medium-zoom.css'
+import mediumZoom from './medium-zoom';
+import './medium-zoom.css';
 
-export default mediumZoom
+export default mediumZoom;
