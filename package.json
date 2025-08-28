@@ -37,7 +37,8 @@
 		"release:examples": "./scripts/release-examples.sh"
 	},
 	"workspaces": [
-		"apps/*"
+		"apps/*",
+		"apps/examples/*"
 	],
 	"files": [
 		"dist"
