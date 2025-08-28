@@ -10,8 +10,8 @@
 
 ## Dev
 
-* Install dependencies: `yarn`
-* Run the website: `yarn start`
+* Install dependencies: `bun`
+* Run the website: `bun start`
 
 ## License
 

@@ -36,6 +36,9 @@
 		"release:next": "release-it --preRelease=next",
 		"release:examples": "./scripts/release-examples.sh"
 	},
+	"workspaces": [
+		"apps/*"
+	],
 	"files": [
 		"dist"
 	],
