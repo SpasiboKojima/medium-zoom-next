@@ -10,7 +10,7 @@
 		"format": "biome check --write"
 	},
 	"dependencies": {
-		"medium-zoom": "1.0.8",
+		"medium-zoom": "workspace:*",
 		"vue": "3.2.47"
 	},
 	"devDependencies": {

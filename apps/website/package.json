@@ -9,10 +9,10 @@
 		"format": "biome check --write"
 	},
 	"dependencies": {
-		"medium-zoom": "1.0.3"
+		"medium-zoom": "workspace:*"
 	},
 	"devDependencies": {
 		"babel-core": "6.26.3",
-		"parcel-bundler": "1.11.0"
+		"parcel-bundler": "1.12.4"
 	}
 }

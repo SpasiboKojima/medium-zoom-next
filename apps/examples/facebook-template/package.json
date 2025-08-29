@@ -9,7 +9,7 @@
 		"format": "biome check --write"
 	},
 	"dependencies": {
-		"medium-zoom": "1.0.8"
+		"medium-zoom": "workspace:*"
 	},
 	"devDependencies": {
 		"parcel-bundler": "1.12.4"

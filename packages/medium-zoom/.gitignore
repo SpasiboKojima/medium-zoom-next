@@ -1,0 +1,11 @@
+/node_modules
+/coverage
+/cypress/screenshots
+/cypress/videos
+/dist
+/storybook
+
+.DS_Store
+package-lock.json
+*.log
+.vscode

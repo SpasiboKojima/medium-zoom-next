@@ -10,7 +10,7 @@
 		"format": "biome check --write"
 	},
 	"dependencies": {
-		"medium-zoom": "1.0.8",
+		"medium-zoom": "workspace:*",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"react-markdown": "8.0.6"
