@@ -26,8 +26,6 @@
 		"test:cypress": "npm-run-all --parallel --race storybook test:cypress:run",
 		"test:cypress:record": "npm-run-all --parallel --race storybook 'test:cypress:run -- --record --key {1}' --",
 		"test:size": "bundlesize",
-		"build:storybook": "build-storybook -o ./website/dist/storybook -c ./stories/config -s ./dist,./stories/images",
-		"storybook": "start-storybook -p 9001 -c ./stories/config -s ./dist,./stories/images",
 		"build:website": "(cd website && bun && bun run build) && bun run build && bun run build:storybook",
 		"changelog:update": "conventional-changelog -p angular -i CHANGELOG.md -s",
 		"release": "release-it",
