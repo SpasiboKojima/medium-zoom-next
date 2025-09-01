@@ -20,7 +20,6 @@
 		"build": "rollup --config",
 		"postbuild": "cp ./src/medium-zoom.d.ts ./dist && cp ./src/medium-zoom.d.ts ./dist/pure/index.d.ts",
 		"format": "biome check --write",
-		"test": "jest",
 		"test:cypress:run": "cypress run",
 		"test:cypress:open": "cypress open",
 		"test:cypress:update": "cypress run --env updateSnapshots=true",
