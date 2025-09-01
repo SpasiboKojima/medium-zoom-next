@@ -69,7 +69,7 @@ We will then review your pull request!
 
 #### Unit and integration tests
 
-[Unit and integration tests](src/__tests__) with [Jest](https://jestjs.io) ensure that the API works as documented.
+[Unit and integration tests](src/__tests__) with [Vitest](https://vitest.dev/) ensure that the API works as documented.
 
 ###### Commands
 

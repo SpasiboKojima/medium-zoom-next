@@ -1,6 +1,8 @@
 import mediumZoom from '../medium-zoom';
+import { describe, expect, test } from 'vitest';
 
 global.requestAnimationFrame = (callback) => setTimeout(callback);
+vi.stubGlobal('__TEST__', true);
 
 /**
  * Returns an empty `document.body` before each test.
@@ -12,6 +14,7 @@ const emptyRootBeforeEach = () => {
 		while (root.firstChild) {
 			root.removeChild(root.firstChild);
 		}
+		vi.useFakeTimers();
 	});
 
 	return root;
@@ -470,7 +473,7 @@ describe('detach()', () => {
 		const zoom = mediumZoom(image);
 
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 		zoom.detach();
 
 		expect(zoom.getImages()).toEqual([]);
@@ -558,7 +561,7 @@ describe('update()', () => {
 
 		expect(updatedOptions).toEqual({
 			...initialOptions,
-			container: document.body,
+			container: { ...document.body },
 		});
 	});
 
@@ -794,7 +797,7 @@ describe('open()', () => {
 
 		const zoom = mediumZoom(image);
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect(zoom.getZoomedImage()).toBe(image);
 	});
@@ -809,7 +812,7 @@ describe('open()', () => {
 
 		const zoom = mediumZoom('img');
 		await zoom.open({ target: image2 });
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect(zoom.getZoomedImage()).toBe(image2);
 	});
@@ -824,7 +827,7 @@ describe('open()', () => {
 
 		const zoom = mediumZoom(image1);
 		await zoom.open({ target: image2 });
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect(zoom.getZoomedImage()).toBe(null);
 	});
@@ -839,7 +842,7 @@ describe('open()', () => {
 
 		const zoom = mediumZoom('img');
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect([...image1.classList]).toEqual(['medium-zoom-image', 'medium-zoom-image--hidden']);
 		expect(document.querySelector('.medium-zoom-image--opened')).toBeTruthy();
@@ -857,7 +860,7 @@ describe('open()', () => {
 
 		const zoom = mediumZoom(image);
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect([...image.classList]).toEqual(['medium-zoom-image', 'medium-zoom-image--hidden']);
 		expect(document.querySelector('.medium-zoom-image--opened')).toBeTruthy();
@@ -874,9 +877,9 @@ describe('open()', () => {
 
 		const zoom = mediumZoom('img');
 		const openedZoom = await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 		await openedZoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect([...image.classList]).toEqual(['medium-zoom-image', 'medium-zoom-image--hidden']);
 		expect(document.querySelector('.medium-zoom-image--opened')).toBeTruthy();
@@ -899,7 +902,7 @@ describe('open()', () => {
 
 		const zoom = mediumZoom(image);
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect([...image.classList]).toEqual(['medium-zoom-image', 'medium-zoom-image--hidden']);
 		expect(document.querySelector('.medium-zoom-image--opened')).toBeTruthy();
@@ -938,14 +941,14 @@ describe('open()', () => {
 		picture.appendChild(source);
 		// | <img>
 		const img = document.createElement('img');
-		jest.spyOn(img, 'currentSrc', 'get').mockReturnValue('http://localhost/mock-src.png');
+		vi.spyOn(img, 'currentSrc', 'get').mockReturnValue('http://localhost/mock-src.png');
 		picture.appendChild(img);
 		// </picture>
 		root.appendChild(picture);
 
 		const zoom = mediumZoom('img');
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect([...img.classList]).toEqual(['medium-zoom-image', 'medium-zoom-image--hidden']);
 		expect(document.querySelector('.medium-zoom-image--opened')).toBeTruthy();
@@ -1060,7 +1063,7 @@ describe('close()', () => {
 		const zoom = mediumZoom(image);
 
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 		await zoom.close();
 
 		expect([...image.classList]).toEqual(['medium-zoom-image']);
@@ -1081,7 +1084,7 @@ describe('close()', () => {
 		const zoom = mediumZoom('img');
 
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 		await zoom.close();
 
 		expect([...image1.classList]).toEqual(['medium-zoom-image']);
@@ -1102,7 +1105,7 @@ describe('close()', () => {
 		const zoom = mediumZoom(image);
 
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 		await zoom.close();
 
 		expect([...image.classList]).toEqual(['medium-zoom-image']);
@@ -1123,7 +1126,7 @@ describe('close()', () => {
 		const zoom = mediumZoom(image, { template });
 
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 		await zoom.close();
 
 		expect([...image.classList]).toEqual(['medium-zoom-image']);
@@ -1142,7 +1145,7 @@ describe('close()', () => {
 		const zoom = mediumZoom('img');
 
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 		await zoom.close();
 		await zoom.close();
 
@@ -1173,7 +1176,7 @@ describe('toggle()', () => {
 		const zoom = mediumZoom(image);
 
 		await zoom.toggle();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect([...image.classList]).toEqual(['medium-zoom-image', 'medium-zoom-image--hidden']);
 		expect(document.querySelector('.medium-zoom-image--opened')).toBeTruthy();
@@ -1191,7 +1194,7 @@ describe('toggle()', () => {
 		const zoom = mediumZoom(image);
 
 		await zoom.toggle();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect([...image.classList]).toEqual(['medium-zoom-image', 'medium-zoom-image--hidden']);
 		expect(document.querySelector('.medium-zoom-image--opened')).toBeTruthy();
@@ -1200,7 +1203,7 @@ describe('toggle()', () => {
 		expect(root).toMatchSnapshot('opened');
 
 		await zoom.toggle();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect([...image.classList]).toEqual(['medium-zoom-image']);
 		expect(document.querySelector('.medium-zoom-image--opened')).toBeFalsy();
@@ -1227,12 +1230,12 @@ describe('on()', () => {
 		root.appendChild(image);
 
 		const zoom = mediumZoom(image);
-		const onOpen = jest.fn();
+		const onOpen = vi.fn();
 
 		zoom.on('open', onOpen);
 
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect(onOpen).toHaveBeenCalledTimes(1);
 		expect(onOpen).toHaveBeenCalledWith(expect.objectContaining({ target: image, detail: { zoom } }));
@@ -1245,12 +1248,12 @@ describe('on()', () => {
 		root.appendChild(image);
 
 		const zoom = mediumZoom(image);
-		const onOpened = jest.fn();
+		const onOpened = vi.fn();
 
 		zoom.on('opened', onOpened);
 
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect(onOpened).toHaveBeenCalledTimes(1);
 		expect(onOpened).toHaveBeenCalledWith(expect.objectContaining({ target: image, detail: { zoom } }));
@@ -1263,12 +1266,12 @@ describe('on()', () => {
 		root.appendChild(image);
 
 		const zoom = mediumZoom(image);
-		const onClose = jest.fn();
+		const onClose = vi.fn();
 
 		zoom.on('close', onClose);
 
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 		await zoom.close();
 
 		expect(onClose).toHaveBeenCalledTimes(1);
@@ -1282,12 +1285,12 @@ describe('on()', () => {
 		root.appendChild(image);
 
 		const zoom = mediumZoom(image);
-		const onClosed = jest.fn();
+		const onClosed = vi.fn();
 
 		zoom.on('closed', onClosed);
 
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 		await zoom.close();
 
 		expect(onClosed).toHaveBeenCalledTimes(1);
@@ -1301,7 +1304,7 @@ describe('on()', () => {
 		root.appendChild(image);
 
 		const zoom = mediumZoom(image);
-		const onUpdate = jest.fn();
+		const onUpdate = vi.fn();
 
 		zoom.on('update', onUpdate);
 
@@ -1318,7 +1321,7 @@ describe('on()', () => {
 		root.appendChild(image);
 
 		const zoom = mediumZoom(image);
-		const onDetach = jest.fn();
+		const onDetach = vi.fn();
 
 		zoom.on('detach', onDetach);
 
@@ -1335,7 +1338,7 @@ describe('on()', () => {
 		root.appendChild(image2);
 
 		const zoom = mediumZoom([image1, image2]);
-		const onDetach = jest.fn();
+		const onDetach = vi.fn();
 
 		zoom.on('detach', onDetach);
 
@@ -1351,7 +1354,7 @@ describe('on()', () => {
 		root.appendChild(image1);
 
 		const zoom = mediumZoom(image1);
-		const onUpdate = jest.fn();
+		const onUpdate = vi.fn();
 
 		zoom.on('update', onUpdate);
 
@@ -1375,12 +1378,12 @@ describe('on()', () => {
 		global.CustomEvent = undefined;
 
 		const zoom = mediumZoom(image);
-		const onOpen = jest.fn();
+		const onOpen = vi.fn();
 
 		zoom.on('open', onOpen);
 
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect(onOpen).toHaveBeenCalledTimes(1);
 		expect(onOpen).toHaveBeenCalledWith(expect.objectContaining({ target: image, detail: { zoom } }));
@@ -1393,15 +1396,15 @@ describe('on()', () => {
 		root.appendChild(image);
 
 		const zoom = mediumZoom(image);
-		const onOpen = jest.fn();
+		const onOpen = vi.fn();
 
 		zoom.on('open', onOpen, { once: true });
 
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 		await zoom.close();
 		await zoom.open();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect(onOpen).toHaveBeenCalledTimes(1);
 		expect(onOpen).toHaveBeenCalledWith(expect.objectContaining({ target: image, detail: { zoom } }));
@@ -1423,7 +1426,7 @@ describe('off()', () => {
 		root.appendChild(image);
 
 		const zoom = mediumZoom(image);
-		const onOpen = jest.fn();
+		const onOpen = vi.fn();
 
 		zoom.on('open', onOpen);
 		zoom.open();
@@ -1441,7 +1444,7 @@ describe('off()', () => {
 		root.appendChild(image1);
 
 		const zoom = mediumZoom(image1);
-		const onUpdate = jest.fn();
+		const onUpdate = vi.fn();
 
 		zoom.on('update', onUpdate);
 
@@ -1469,7 +1472,7 @@ describe('off()', () => {
 		root.appendChild(image1);
 
 		const zoom = mediumZoom(image1);
-		const onUpdate = jest.fn();
+		const onUpdate = vi.fn();
 
 		zoom.on('update', onUpdate);
 
@@ -1504,7 +1507,7 @@ describe('browser events', () => {
 		mediumZoom(image);
 
 		image.click();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect([...image.classList]).toEqual(['medium-zoom-image', 'medium-zoom-image--hidden']);
 		expect(document.querySelector('.medium-zoom-image--opened')).toBeTruthy();
@@ -1520,11 +1523,11 @@ describe('browser events', () => {
 		mediumZoom(image);
 
 		image.click();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		const overlay = document.querySelector('.medium-zoom-overlay');
 		overlay.click();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect([...image.classList]).toEqual(['medium-zoom-image']);
 		expect(document.querySelector('.medium-zoom-image--opened')).toBeFalsy();
@@ -1540,7 +1543,7 @@ describe('browser events', () => {
 		mediumZoom(image);
 
 		image.click();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		document.dispatchEvent(
 			new KeyboardEvent('keyup', {
@@ -1550,7 +1553,7 @@ describe('browser events', () => {
 				keyCode: 27,
 			})
 		);
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect([...image.classList]).toEqual(['medium-zoom-image']);
 		expect(document.querySelector('.medium-zoom-image--opened')).toBeFalsy();
@@ -1566,7 +1569,7 @@ describe('browser events', () => {
 		mediumZoom(image);
 
 		image.click();
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		document.dispatchEvent(
 			new KeyboardEvent('keyup', {
@@ -1576,7 +1579,7 @@ describe('browser events', () => {
 				keyCode: 13,
 			})
 		);
-		jest.runAllTimers();
+		vi.runAllTimers();
 
 		expect([...image.classList]).toEqual(['medium-zoom-image', 'medium-zoom-image--hidden']);
 		expect(document.querySelector('.medium-zoom-image--opened')).toBeTruthy();
