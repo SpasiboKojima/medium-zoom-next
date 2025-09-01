@@ -9,7 +9,6 @@ This module is meant to reproduce the zoom from [Medium](http://medium.com). We 
 ## Folder structure
 
 ```
-▸ cypress           The end-to-end tests written for Cypress
 ▸ examples          The Medium Zoom featured examples available on CodeSandbox
 ▸ src               The source code of the module
   ▸ __tests__       The tests for the module API
@@ -76,15 +75,6 @@ We will then review your pull request!
 - Run the tests: `bun run test`
 - Watch the tests: `bun run test --watch`
 - Run the tests with coverage: `bun run test --coverage`
-
-#### End-to-end tests
-
-[End-to-end tests](cypress/integration) with [Cypress](https://cypress.io) take screenshots of the stories to ensure that the zoom looks as expected.
-
-###### Commands
-
-- Open the Cypress UI: `bun run test:cypress:open`
-- Run the Cypress tests: `bun run test:cypress:run`
 
 ### Releasing
 
