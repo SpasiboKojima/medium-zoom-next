@@ -2,7 +2,7 @@
 	"name": "@medium-zoom/facebook-template-example",
 	"version": "1.0.0",
 	"private": true,
-	"main": "index.html",
+	"browserslist": "> 0.25%, not dead",
 	"scripts": {
 		"start": "parcel index.html --open",
 		"build": "parcel build index.html",
@@ -12,6 +12,6 @@
 		"medium-zoom": "workspace:*"
 	},
 	"devDependencies": {
-		"parcel-bundler": "1.12.4"
+		"parcel": "^2.15.4"
 	}
 }
