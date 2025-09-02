@@ -110,29 +110,22 @@ Import the library as a module:
 
 ```js
 import mediumZoom from 'medium-zoom'
+import 'medium-zoom/dist/style.css'
 ```
 
 Or import the library with a script tag:
 
 ```html
 <script src="node_modules/medium-zoom/dist/medium-zoom.min.js"></script>
+<style src="node_modules/medium-zoom/dist/style.css"></style>
 ```
 
-That's it! You don't need to import any CSS styles.
 
 Assuming you add the `data-zoomable` attribute to your images:
 
 ```js
 mediumZoom('[data-zoomable]')
 ```
-
-> [!TIP]
-> If you want to control when to inject the Medium Zoom CSS styles, you can use the pure JavaScript bundle:
->
-> ```js
-> import mediumZoom from 'medium-zoom/dist/pure'
-> import 'medium-zoom/dist/style.css'
-> ```
 
 ## API
 

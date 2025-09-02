@@ -3,19 +3,13 @@ import { terser } from 'rollup-plugin-terser';
 import license from 'rollup-plugin-license';
 import replace from 'rollup-plugin-replace';
 import { uglify } from 'rollup-plugin-uglify';
-import postcss from 'rollup-plugin-postcss';
 import filesize from 'rollup-plugin-filesize';
-import cssnano from 'cssnano';
 
 import pkg from './package.json';
 
 const banner = `/*! ${pkg.name} ${pkg.version} | ${pkg.license} License | https://github.com/${pkg.repository} */`;
 
 const sharedPlugins = [
-	postcss({
-		extensions: ['.css'],
-		plugins: [cssnano()],
-	}),
 	replace({
 		__TEST__: process.env.NODE_ENV === 'test' ? 'true' : 'false',
 	}),
@@ -64,47 +58,5 @@ export default [
 			format: 'umd',
 		},
 		plugins: [...sharedPlugins, terser(), license({ banner })],
-	},
-	// pure
-	{
-		input: 'src/medium-zoom.js',
-		output: {
-			file: 'dist/pure/index.js',
-			format: 'es',
-		},
-		plugins: [...sharedPlugins, license({ banner })],
-	},
-	{
-		input: 'src/medium-zoom.js',
-		output: {
-			name: 'mediumZoom',
-			file: 'dist/pure/medium-zoom.umd.js',
-			format: 'umd',
-		},
-		plugins: [...sharedPlugins, prettifyPlugin],
-	},
-	{
-		input: 'src/medium-zoom.js',
-		output: {
-			name: 'mediumZoom',
-			file: 'dist/pure/medium-zoom.min.umd.js',
-			format: 'umd',
-		},
-		plugins: [...sharedPlugins, terser(), license({ banner })],
-	},
-	// style
-	{
-		input: 'src/medium-zoom.css',
-		output: {
-			file: 'dist/style.css',
-			format: 'es',
-		},
-		plugins: [
-			postcss({
-				extract: true,
-				minimize: true,
-			}),
-			license({ banner }),
-		],
 	},
 ];

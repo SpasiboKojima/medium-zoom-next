@@ -11,14 +11,6 @@
 		{
 			"path": "dist/medium-zoom.min.js",
 			"maxSize": "3.25 kB"
-		},
-		{
-			"path": "dist/pure/index.js",
-			"maxSize": "4.75 kB"
-		},
-		{
-			"path": "dist/pure/medium-zoom.min.umd.js",
-			"maxSize": "2.75 kB"
 		}
 	]
 }
