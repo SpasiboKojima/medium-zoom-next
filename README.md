@@ -493,11 +493,9 @@ If that's the case, you can provide a `z-index` value in your CSS:
 
 ## Browser support
 
-| IE              | Edge            | Chrome | Firefox | Safari |
-| --------------- | --------------- | ------ | ------- | ------ |
-| 10<sup>\*</sup> | 12<sup>\*</sup> | 36     | 34      | 9      |
-
-<sup>\*</sup> _These browsers require a [`template` polyfill](https://github.com/webcomponents/template) when using [custom templates](docs/template.md)_.
+| Edge            | Chrome | Firefox | Safari |
+| --------------- | ------ | ------- | ------ |
+| 138             | 109    | 140     | 15.6   |
 
 <blockquote>
   <p align="center">

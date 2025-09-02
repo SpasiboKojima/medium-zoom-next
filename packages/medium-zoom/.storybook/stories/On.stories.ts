@@ -135,7 +135,7 @@ Detach.parameters = {
 	docs: {
 		description: {
 			story:
-				'The \`detach\` event fires when the \`detach\` instance method is called.\n          Once detached, the image is not part of the zoom anymore.',
+				'The `detach` event fires when the `detach` instance method is called.\n          Once detached, the image is not part of the zoom anymore.',
 		},
 		codePanel: true,
 		source: {
