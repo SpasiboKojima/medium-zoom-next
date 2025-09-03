@@ -40,8 +40,7 @@
 		"clean": "rimraf ./dist",
 		"storybook": "storybook dev -p 6006",
 		"build:storybook": "storybook build",
-		"build:css": "lightningcss --minify --bundle --targets \"> 0.25%, not dead\" src/medium-zoom.css -o dist/style.css",
-		"changelog:update": "conventional-changelog -p angular -i CHANGELOG.md -s"
+		"build:css": "lightningcss --minify --bundle --targets \"> 0.25%, not dead\" src/medium-zoom.css -o dist/style.css"
 	},
 	"files": [
 		"dist"
@@ -72,9 +71,7 @@
 		"@size-limit/preset-small-lib": "^11.2.0",
 		"@storybook/addon-docs": "^9.1.3",
 		"@storybook/html-vite": "^9.1.3",
-		"conventional-changelog-cli": "2.0.28",
 		"lightningcss-cli": "^1.30.1",
-		"release-it": "10.4.5",
 		"rimraf": "3.0.0",
 		"rollup": "4.50.0",
 		"rollup-plugin-filesize": "10.0.0",

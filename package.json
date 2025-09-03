@@ -42,7 +42,7 @@
 	],
 	"devDependencies": {
 		"@biomejs/biome": "2.2.2",
-		"conventional-changelog-cli": "2.0.28",
+		"conventional-changelog": "^7.1.1",
 		"lefthook": "^1.12.3",
 		"release-it": "10.4.5"
 	}
