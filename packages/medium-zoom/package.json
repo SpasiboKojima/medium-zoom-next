@@ -1,0 +1,84 @@
+{
+	"name": "medium-zoom",
+	"version": "1.1.1",
+	"description": "A JavaScript library for zooming images like Medium",
+	"license": "MIT",
+	"type": "module",
+	"author": {
+		"name": "Francois Chalifour",
+		"email": "francois.chalifour@gmail.com",
+		"url": "https://francoischalifour.com"
+	},
+	"repository": "SpasiboKojima/medium-zoom",
+	"browserslist": "> 0.25%, not dead",
+	"main": "dist/medium-zoom.min.cjs",
+	"module": "dist/medium-zoom.esm.js",
+	"types": "dist/medium-zoom.d.ts",
+	"size-limit": [
+		{
+			"path": "dist/style.css",
+			"limit": "250 B"
+		},
+		{
+			"path": "dist/medium-zoom.esm.js",
+			"limit": "5 kB"
+		},
+		{
+			"path": "dist/medium-zoom.min.cjs",
+			"limit": "3.25 kB"
+		}
+	],
+	"scripts": {
+		"start": "bun run dev",
+		"dev": "rollup --config --watch",
+		"prebuild": "bun run clean",
+		"build": "rollup --config & bun run build:css",
+		"postbuild": "cp ./src/medium-zoom.d.ts ./dist",
+		"format": "biome check --write",
+		"test": "vitest",
+		"test:size": "size-limit",
+		"clean": "rimraf ./dist",
+		"storybook": "storybook dev -p 6006",
+		"build:storybook": "storybook build",
+		"build:css": "lightningcss --minify --bundle --targets \"> 0.25%, not dead\" src/medium-zoom.css -o dist/style.css"
+	},
+	"files": [
+		"dist"
+	],
+	"keywords": [
+		"medium",
+		"image",
+		"zoom",
+		"picture",
+		"lightbox",
+		"click",
+		"scroll",
+		"pure",
+		"plain",
+		"vanilla",
+		"javascript",
+		"ux",
+		"performance",
+		"event",
+		"medium-zoom",
+		"zoomable"
+	],
+	"devDependencies": {
+		"@babel/core": "^7.28.3",
+		"@babel/preset-env": "^7.28.3",
+		"@rollup/plugin-babel": "^6.0.4",
+		"@rollup/plugin-replace": "^6.0.2",
+		"@size-limit/preset-small-lib": "^11.2.0",
+		"@storybook/addon-docs": "^9.1.3",
+		"@storybook/html-vite": "^9.1.3",
+		"lightningcss-cli": "^1.30.1",
+		"rimraf": "3.0.0",
+		"rollup": "4.50.0",
+		"rollup-plugin-filesize": "10.0.0",
+		"rollup-plugin-license": "3.6.0",
+		"rollup-plugin-terser": "7.0.2",
+		"size-limit": "^11.2.0",
+		"storybook": "^9.1.3",
+		"vitest": "^3.2.4"
+	}
+}

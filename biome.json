@@ -1,0 +1,43 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
+	"files": {
+		"includes": ["**", "!dist", "!**/node_modules", "!**/coverage", "!**/stories"]
+	},
+	"assist": {
+		"actions": {
+			"source": { "organizeImports": "off", "useSortedProperties": "on" }
+		}
+	},
+	"formatter": {
+		"indentStyle": "tab",
+		"lineWidth": 140,
+		"indentWidth": 2
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single",
+			"trailingCommas": "es5"
+		}
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"correctness": {
+				"noUnusedImports": "warn"
+			},
+			"style": {
+				"useEnumInitializers": "off",
+				"useSelfClosingElements": "error",
+				"noUnusedTemplateLiteral": "error",
+				"useNumberNamespace": "error",
+				"noInferrableTypes": "error"
+			}
+		}
+	},
+	"html": {
+		"formatter": {
+			"enabled": true
+		}
+	}
+}

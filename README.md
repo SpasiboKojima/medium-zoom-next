@@ -89,8 +89,6 @@ The module is available on the [npm](https://www.npmjs.com) registry.
 
 ```sh
 npm install medium-zoom
-# or
-yarn add medium-zoom
 ```
 
 ###### Download
@@ -112,29 +110,22 @@ Import the library as a module:
 
 ```js
 import mediumZoom from 'medium-zoom'
+import 'medium-zoom/dist/style.css'
 ```
 
 Or import the library with a script tag:
 
 ```html
 <script src="node_modules/medium-zoom/dist/medium-zoom.min.js"></script>
+<style src="node_modules/medium-zoom/dist/style.css"></style>
 ```
 
-That's it! You don't need to import any CSS styles.
 
 Assuming you add the `data-zoomable` attribute to your images:
 
 ```js
 mediumZoom('[data-zoomable]')
 ```
-
-> [!TIP]
-> If you want to control when to inject the Medium Zoom CSS styles, you can use the pure JavaScript bundle:
->
-> ```js
-> import mediumZoom from 'medium-zoom/dist/pure'
-> import 'medium-zoom/dist/style.css'
-> ```
 
 ## API
 
@@ -502,11 +493,9 @@ If that's the case, you can provide a `z-index` value in your CSS:
 
 ## Browser support
 
-| IE              | Edge            | Chrome | Firefox | Safari |
-| --------------- | --------------- | ------ | ------- | ------ |
-| 10<sup>\*</sup> | 12<sup>\*</sup> | 36     | 34      | 9      |
-
-<sup>\*</sup> _These browsers require a [`template` polyfill](https://github.com/webcomponents/template) when using [custom templates](docs/template.md)_.
+| Edge            | Chrome | Firefox | Safari |
+| --------------- | ------ | ------- | ------ |
+| 138             | 109    | 140     | 15.6   |
 
 <blockquote>
   <p align="center">
@@ -521,9 +510,9 @@ If that's the case, you can provide a `z-index` value in your CSS:
 
 ## Contributing
 
-- Run `yarn` to install Node dev dependencies
-- Run `yarn start` to build the library in watch mode
-- Run `yarn run storybook` to see your changes at http://localhost:9001
+- Run `bun` to install Node dev dependencies
+- Run `bun start` to build the library in watch mode
+- Run `bun run storybook` to see your changes at http://localhost:9001
 
 Please read the [contributing guidelines](CONTRIBUTING.md) for more detailed explanations.
 

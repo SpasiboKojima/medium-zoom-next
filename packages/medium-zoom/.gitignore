@@ -1,6 +1,9 @@
 /node_modules
 /coverage
+/dist
+/storybook
 
 .DS_Store
+package-lock.json
 *.log
 .vscode

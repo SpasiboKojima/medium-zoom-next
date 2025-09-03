@@ -9,7 +9,6 @@ This module is meant to reproduce the zoom from [Medium](http://medium.com). We 
 ## Folder structure
 
 ```
-▸ cypress           The end-to-end tests written for Cypress
 ▸ examples          The Medium Zoom featured examples available on CodeSandbox
 ▸ src               The source code of the module
   ▸ __tests__       The tests for the module API
@@ -20,7 +19,7 @@ This module is meant to reproduce the zoom from [Medium](http://medium.com). We 
 ## Requirements
 
 - [Node](https://nodejs.org)
-- [Yarn](https://yarnpkg.com)
+- [Bun](https://bun.dev/)
 
 ## Conventions
 
@@ -44,23 +43,23 @@ After discussing in an issue about the need to change the code, you will need to
 
 - [Fork the repository](https://help.github.com/articles/fork-a-repo/)
 - Clone your fork
-- Install the dependencies: `yarn`
+- Install the dependencies: `bun`
 - For a **documentation** change:
   - Create a branch `docs/what-you-change`
   - Make the changes
-  - Run `yarn run format`
+  - Run `bun run format`
 - For a **bug fix**:
   - Create a branch `fix/issue-number`
-  - [Write a test](src/__tests__/medium-zoom.test.js) to reproduce the bug (run `yarn run test`)
+  - [Write a test](src/__tests__/medium-zoom.test.js) to reproduce the bug (run `bun run test`)
   - Fix the bug in the [source code](src/medium-zoom.js)
   - Make your test pass the previous bug
-  - Run `yarn run format` and fix problems if any
+  - Run `bun run format` and fix problems if any
 - For a **feature**:
   - Create a branch `feat/name-of-the-feature`
   - Add the feature to the [source code](src/medium-zoom.js)
   - Create a story in the [storybook](stories) showcasing the feature
-  - [Write a test](src/__tests__/medium-zoom.test.js) to ensure it's working as expected (run `yarn run test`)
-  - Run `yarn run format` and fix problems if any
+  - [Write a test](src/__tests__/medium-zoom.test.js) to ensure it's working as expected (run `bun run test`)
+  - Run `bun run format` and fix problems if any
 - [Create a pull request](https://help.github.com/articles/creating-a-pull-request/)
 
 We will then review your pull request!
@@ -69,22 +68,13 @@ We will then review your pull request!
 
 #### Unit and integration tests
 
-[Unit and integration tests](src/__tests__) with [Jest](https://jestjs.io) ensure that the API works as documented.
+[Unit and integration tests](src/__tests__) with [Vitest](https://vitest.dev/) ensure that the API works as documented.
 
 ###### Commands
 
-- Run the tests: `yarn run test`
-- Watch the tests: `yarn run test --watch`
-- Run the tests with coverage: `yarn run test --coverage`
-
-#### End-to-end tests
-
-[End-to-end tests](cypress/integration) with [Cypress](https://cypress.io) take screenshots of the stories to ensure that the zoom looks as expected.
-
-###### Commands
-
-- Open the Cypress UI: `yarn run test:cypress:open`
-- Run the Cypress tests: `yarn run test:cypress:run`
+- Run the tests: `bun run test`
+- Watch the tests: `bun run test --watch`
+- Run the tests with coverage: `bun run test --coverage`
 
 ### Releasing
 
@@ -106,13 +96,13 @@ The release flow goes through these steps:
 ##### Unstable version
 
 1. Make sure you're on the `next` branch
-1. Run `npm run release:next` (_do not_ use `yarn` for releasing)
+1. Run `npm run release:next` (_do not_ use `bun` for releasing)
 1. Follow the command-line instructions
 
 ##### Stable version
 
 1. Make sure you're on the `master` branch
-1. Run `npm run release` (_do not_ use `yarn` for releasing)
+1. Run `npm run release` (_do not_ use `bun` for releasing)
 1. Follow the command-line instructions
 
 ---
