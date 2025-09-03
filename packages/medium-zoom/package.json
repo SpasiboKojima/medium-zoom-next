@@ -32,7 +32,7 @@
 		"start": "bun run dev",
 		"dev": "rollup --config --watch",
 		"prebuild": "bun run clean",
-		"build": "rollup --config && bun run build:css",
+		"build": "rollup --config & bun run build:css",
 		"postbuild": "cp ./src/medium-zoom.d.ts ./dist",
 		"format": "biome check --write",
 		"test": "vitest",

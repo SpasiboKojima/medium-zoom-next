@@ -16,9 +16,6 @@
 	"scripts": {
 		"start": "bun run dev",
 		"dev": "rollup --config --watch",
-		"prebuild": "bun run clean",
-		"build": "rollup --config",
-		"postbuild": "cp ./src/medium-zoom.d.ts ./dist && cp ./src/medium-zoom.d.ts ./dist/pure/index.d.ts",
 		"format": "biome check --write",
 		"build:website": "(cd website && bun && bun run build) && bun run build && bun run build:storybook",
 		"changelog:update": "conventional-changelog -p angular -i CHANGELOG.md -s",
