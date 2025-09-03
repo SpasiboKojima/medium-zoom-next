@@ -34,3 +34,10 @@
 	cursor: zoom-out;
 	will-change: transform;
 }
+
+@media (prefers-reduced-motion: reduce) {
+	.medium-zoom-overlay,
+	.medium-zoom-image {
+		transition-duration: 0.01ms !important;
+	}
+}
