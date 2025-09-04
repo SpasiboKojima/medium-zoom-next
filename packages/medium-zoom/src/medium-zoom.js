@@ -38,11 +38,11 @@ const mediumZoom = (selector, options = {}) => {
 		isScaling = false;
 	};
 
-	const _handleKeyUp = (event) => {
+	const _handleKeyDown = (event) => {
 		const key = event.key;
 
-		// Close if escape key is pressed
-		if (key === 'Escape' || key === 'Esc') {
+		// Close if escape or Tab key is pressed
+		if (key === 'Escape' || key === 'Esc' || key === 'Tab') {
 			close();
 		}
 	};
@@ -463,7 +463,7 @@ const mediumZoom = (selector, options = {}) => {
 	const controller = new AbortController();
 	overlay.addEventListener('click', close);
 
-	document.addEventListener('keyup', _handleKeyUp, { signal: controller.signal });
+	document.addEventListener('keydown', _handleKeyDown, { signal: controller.signal });
 	window.addEventListener('scroll', _handleScroll, { passive: true, signal: controller.signal });
 	window.addEventListener('touchstart', _handleTouchStart, { passive: true, signal: controller.signal });
 	window.addEventListener('touchend', _handleTouchEnd, { passive: true, signal: controller.signal });
