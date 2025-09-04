@@ -1,4 +1,4 @@
-import type { Zoom, ZoomActive, ZoomOpenOptions, ZoomOptions, ZoomOptionsParams, ZoomSelector } from './types';
+import type { Zoom, ZoomActive, ZoomEvent, ZoomOpenOptions, ZoomOptions, ZoomOptionsParams, ZoomSelector } from './types';
 import { cloneTarget, createCustomEvent, createOverlay, getImagesFromSelector, getTemplate, isNode, isSvg } from './utils';
 
 declare global {
@@ -129,7 +129,7 @@ const mediumZoom = (selector?: ZoomSelector | ZoomOptionsParams, options: ZoomOp
 		return zoom;
 	};
 
-	const on = (type: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions = {}) => {
+	const on = (type: ZoomEvent, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions = {}) => {
 		images.forEach((image) => {
 			image.addEventListener(`medium-zoom:${type}`, listener, options);
 		});
@@ -139,7 +139,7 @@ const mediumZoom = (selector?: ZoomSelector | ZoomOptionsParams, options: ZoomOp
 		return zoom;
 	};
 
-	const off = (type: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions = {}) => {
+	const off = (type: ZoomEvent, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions = {}) => {
 		images.forEach((image) => {
 			image.removeEventListener(`medium-zoom:${type}`, listener, options);
 		});
@@ -391,6 +391,12 @@ const mediumZoom = (selector?: ZoomSelector | ZoomOptionsParams, options: ZoomOp
 				active.original?.classList.add('medium-zoom-image--hidden');
 
 				_animate();
+
+				active.original?.dispatchEvent(
+					createCustomEvent('medium-zoom:changed', {
+						detail: { zoom },
+					})
+				);
 
 				isAnimating = false;
 				resolve(zoom);

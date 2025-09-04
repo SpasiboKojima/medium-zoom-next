@@ -276,7 +276,7 @@ const clonedZoom = zoom.clone({ margin: 48 })
 clonedZoom.getOptions() // => { container: '#zoom-container', margin: 48, ... }
 ```
 
-#### `on(type: string, listener: () => void, options?: boolean | AddEventListenerOptions): Zoom`
+#### `on(type: ZoomEvent, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): Zoom`
 
 Registers the listener on each target of the zoom.
 
@@ -300,7 +300,7 @@ zoom.on(
 
 The zoom object is accessible in `event.detail.zoom`.
 
-#### `off(type: string, listener: () => void, options?: boolean | AddEventListenerOptions): Zoom`
+#### `off(type: ZoomEvent, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): Zoom`
 
 Removes the previously registered listener on each target of the zoom.
 
@@ -365,14 +365,15 @@ Specifies the high definition image to open on zoom. This image loads when the u
 
 ### Events
 
-| Event  | Description                                         |
-| ------ | --------------------------------------------------- |
-| open   | Fired immediately when the `open` method is called  |
-| opened | Fired when the zoom has finished being animated     |
-| close  | Fired immediately when the `close` method is called |
-| closed | Fired when the zoom out has finished being animated |
-| detach | Fired when the `detach` method is called            |
-| update | Fired when the `update` method is called            |
+| Event   | Description                                         |
+| ------- | --------------------------------------------------- |
+| open    | Fired immediately when the `open` method is called  |
+| opened  | Fired when the zoom has finished being animated     |
+| close   | Fired immediately when the `close` method is called |
+| closed  | Fired when the zoom out has finished being animated |
+| detach  | Fired when the `detach` method is called            |
+| update  | Fired when the `update` method is called            |
+| changed | Fired when the image change has finished            |
 
 ```js
 const zoom = mediumZoom('[data-zoomable]')

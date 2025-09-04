@@ -1,4 +1,5 @@
 export type ZoomSelector = string | HTMLElement | HTMLElement[] | NodeList;
+export type ZoomEvent = 'open' | 'opened' | 'close' | 'closed' | 'detach' | 'update' | 'changed';
 
 export interface ZoomOptionsParams {
 	/**
@@ -113,7 +114,7 @@ export interface Zoom {
 	 * @param options
 	 * @returns The zoom.
 	 */
-	update(options: ZoomOptions): Zoom;
+	update(options: ZoomOptionsParams): Zoom;
 
 	/**
 	 * Extends the zoom with the provided options merged with the current ones.
@@ -121,7 +122,7 @@ export interface Zoom {
 	 * @param options
 	 * @returns The zoom.
 	 */
-	clone(options?: ZoomOptions): Zoom;
+	clone(options?: ZoomOptionsParams): Zoom;
 
 	/**
 	 * Registers an event handler on each target of the zoom.
@@ -131,7 +132,7 @@ export interface Zoom {
 	 * @param options - The event listener options (same as [`addEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Parameters))
 	 * @returns The zoom.
 	 */
-	on(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): Zoom;
+	on(type: ZoomEvent, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): Zoom;
 
 	/**
 	 * Unregisters an event handler.
@@ -141,7 +142,7 @@ export interface Zoom {
 	 * @param options - The event listener options (same as [`removeEventListener`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener#Parameters))
 	 * @returns The zoom.
 	 */
-	off(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): Zoom;
+	off(type: ZoomEvent, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): Zoom;
 
 	/**
 	 * Returns the zoom options.
