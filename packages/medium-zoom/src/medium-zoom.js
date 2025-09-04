@@ -1,23 +1,22 @@
 import { isNode, isSvg, getImagesFromSelector, createOverlay, cloneTarget, createCustomEvent, getTemplate } from './utils';
 
 const mediumZoom = (selector, options = {}) => {
-	const _handleClick = (event) => {
-		const { target } = event;
+	const _handleResize = () => {
+		const browserScale = window.visualViewport?.scale ?? 1;
 
-		if (target === overlay) {
-			close();
+		if (isScaling || browserScale > 1) {
 			return;
 		}
-
-		if (images.indexOf(target) === -1) {
-			return;
-		}
-
-		toggle({ target });
+		close();
 	};
 
 	const _handleScroll = () => {
 		if (isAnimating || !active.original) {
+			return;
+		}
+		const browserScale = window.visualViewport?.scale ?? 1;
+
+		if (isScaling || browserScale > 1) {
 			return;
 		}
 
@@ -26,6 +25,17 @@ const mediumZoom = (selector, options = {}) => {
 		if (Math.abs(scrollTop - currentScroll) > zoomOptions.scrollOffset) {
 			setTimeout(close, 150);
 		}
+	};
+
+	const _handleTouchStart = (e) => {
+		if (e.touches.length > 1) {
+			isScaling = true;
+			return;
+		}
+	};
+
+	const _handleTouchEnd = () => {
+		isScaling = false;
 	};
 
 	const _handleKeyUp = (event) => {
@@ -73,6 +83,7 @@ const mediumZoom = (selector, options = {}) => {
 			.forEach((newImage) => {
 				images.push(newImage);
 				newImage.classList.add('medium-zoom-image');
+				newImage.addEventListener('click', () => toggle({ target: newImage }), { signal: controller.signal });
 			});
 
 		eventListeners.forEach(({ type, listener, options }) => {
@@ -411,6 +422,7 @@ const mediumZoom = (selector, options = {}) => {
 	let images = [];
 	let eventListeners = [];
 	let isAnimating = false;
+	let isScaling = false;
 	let scrollTop = 0;
 	let zoomOptions = {
 		margin: 0,
@@ -449,10 +461,14 @@ const mediumZoom = (selector, options = {}) => {
 	const overlay = createOverlay();
 
 	const controller = new AbortController();
-	document.addEventListener('click', _handleClick, { signal: controller.signal });
+	overlay.addEventListener('click', close);
+
 	document.addEventListener('keyup', _handleKeyUp, { signal: controller.signal });
-	document.addEventListener('scroll', _handleScroll, { signal: controller.signal });
-	window.addEventListener('resize', close, { signal: controller.signal });
+	window.addEventListener('scroll', _handleScroll, { passive: true, signal: controller.signal });
+	window.addEventListener('touchstart', _handleTouchStart, { passive: true, signal: controller.signal });
+	window.addEventListener('touchend', _handleTouchEnd, { passive: true, signal: controller.signal });
+	window.addEventListener('touchcancel', _handleTouchEnd, { passive: true, signal: controller.signal });
+	window.addEventListener('resize', _handleResize, { passive: true, signal: controller.signal });
 
 	const zoom = {
 		open,
