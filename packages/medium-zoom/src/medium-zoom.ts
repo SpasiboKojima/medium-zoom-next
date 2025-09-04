@@ -205,7 +205,7 @@ const mediumZoom = (selector?: ZoomSelector | ZoomOptionsParams, options: ZoomOp
 		const scale = Math.min(scaleX, scaleY);
 		const translateX = (-left + (viewportWidth - width) / 2 + zoomOptions.margin + container.left) / scale;
 		const translateY = (-top + (viewportHeight - height) / 2 + zoomOptions.margin + container.top) / scale;
-		const transform = `scale(${scale}) translate3d(${translateX}px, ${translateY}px, 0)`;
+		const transform = `scale(${scale}) translate(${translateX}px, ${translateY}px) translateZ(0)`;
 
 		active.zoomed.style.transform = transform;
 
