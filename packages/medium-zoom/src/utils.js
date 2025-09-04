@@ -1,7 +1,6 @@
 export const isSupported = (node) => node.tagName === 'IMG';
 
-/* eslint-disable-next-line no-prototype-builtins */
-export const isNodeList = (selector) => NodeList.prototype.isPrototypeOf(selector);
+export const isNodeList = (selector) => Object.prototype.isPrototypeOf.call(NodeList.prototype, selector);
 
 export const isNode = (selector) => selector && selector.nodeType === 1;
 
@@ -17,8 +16,7 @@ export const getImagesFromSelector = (selector) => {
 		}
 
 		if (isNodeList(selector)) {
-			// Do not use spread operator or Array.from() for IE support
-			return [].slice.call(selector).filter(isSupported);
+			return Array.from(selector).filter(isSupported);
 		}
 
 		if (isNode(selector)) {
@@ -26,12 +24,11 @@ export const getImagesFromSelector = (selector) => {
 		}
 
 		if (typeof selector === 'string') {
-			// Do not use spread operator or Array.from() for IE support
-			return [].slice.call(document.querySelectorAll(selector)).filter(isSupported);
+			return Array.from(document.querySelectorAll(selector)).filter(isSupported);
 		}
 
 		return [];
-	} catch (err) {
+	} catch {
 		throw new TypeError(
 			'The provided selector is invalid.\n' +
 				'Expects a CSS selector, a Node element, a NodeList or an array.\n' +
@@ -50,8 +47,8 @@ export const createOverlay = () => {
 export const cloneTarget = (template) => {
 	const { top, left, width, height } = template.getBoundingClientRect();
 	const clone = template.cloneNode();
-	const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-	const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;
+	const scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+	const scrollLeft = window.scrollX || document.documentElement.scrollLeft || document.body.scrollLeft || 0;
 
 	clone.removeAttribute('id');
 	clone.style.position = 'absolute';
@@ -72,12 +69,5 @@ export const createCustomEvent = (type, params) => {
 		...params,
 	};
 
-	if (typeof window.CustomEvent === 'function') {
-		return new CustomEvent(type, eventParams);
-	}
-
-	const customEvent = document.createEvent('CustomEvent');
-	customEvent.initCustomEvent(type, eventParams.bubbles, eventParams.cancelable, eventParams.detail);
-
-	return customEvent;
+	return new CustomEvent(type, eventParams);
 };

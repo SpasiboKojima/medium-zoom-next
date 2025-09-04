@@ -1,16 +1,6 @@
 import { isNode, isSvg, getImagesFromSelector, createOverlay, cloneTarget, createCustomEvent } from './utils';
 
 const mediumZoom = (selector, options = {}) => {
-	/**
-	 * Ensure the compatibility with IE11 if no Promise polyfill are used.
-	 */
-	const Promise =
-		window.Promise ||
-		function Promise(fn) {
-			function noop() {}
-			fn(noop, noop);
-		};
-
 	const _handleClick = (event) => {
 		const { target } = event;
 
@@ -31,7 +21,7 @@ const mediumZoom = (selector, options = {}) => {
 			return;
 		}
 
-		const currentScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+		const currentScroll = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
 
 		if (Math.abs(scrollTop - currentScroll) > zoomOptions.scrollOffset) {
 			setTimeout(close, 150);
@@ -39,10 +29,10 @@ const mediumZoom = (selector, options = {}) => {
 	};
 
 	const _handleKeyUp = (event) => {
-		const key = event.key || event.keyCode;
+		const key = event.key;
 
 		// Close if escape key is pressed
-		if (key === 'Escape' || key === 'Esc' || key === 27) {
+		if (key === 'Escape' || key === 'Esc') {
 			close();
 		}
 	};
@@ -80,7 +70,7 @@ const mediumZoom = (selector, options = {}) => {
 
 	const attach = (...selectors) => {
 		const newImages = selectors.reduce(
-			(imagesAccumulator, currentSelector) => [...imagesAccumulator, ...getImagesFromSelector(currentSelector)],
+			(imagesAccumulator, currentSelector) => imagesAccumulator.concat(getImagesFromSelector(currentSelector)),
 			[]
 		);
 
@@ -107,7 +97,7 @@ const mediumZoom = (selector, options = {}) => {
 
 		const imagesToDetach =
 			selectors.length > 0
-				? selectors.reduce((imagesAccumulator, currentSelector) => [...imagesAccumulator, ...getImagesFromSelector(currentSelector)], [])
+				? selectors.reduce((imagesAccumulator, currentSelector) => imagesAccumulator.concat(getImagesFromSelector(currentSelector)), [])
 				: images;
 
 		imagesToDetach.forEach((image) => {
@@ -248,7 +238,7 @@ const mediumZoom = (selector, options = {}) => {
 				})
 			);
 
-			scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+			scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
 			isAnimating = true;
 			active.zoomed = cloneTarget(active.original);
 
