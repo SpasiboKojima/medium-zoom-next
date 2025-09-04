@@ -1,6 +1,11 @@
-import { isNode, isSvg, getImagesFromSelector, createOverlay, cloneTarget, createCustomEvent, getTemplate } from './utils';
+import type { Zoom, ZoomActive, ZoomOpenOptions, ZoomOptions, ZoomOptionsParams, ZoomSelector } from './types';
+import { cloneTarget, createCustomEvent, createOverlay, getImagesFromSelector, getTemplate, isNode, isSvg } from './utils';
 
-const mediumZoom = (selector, options = {}) => {
+declare global {
+	const __TEST__: boolean;
+}
+
+const mediumZoom = (selector?: ZoomSelector | ZoomOptionsParams, options: ZoomOptionsParams = {}) => {
 	const _handleResize = () => {
 		const browserScale = window.visualViewport?.scale ?? 1;
 
@@ -27,7 +32,7 @@ const mediumZoom = (selector, options = {}) => {
 		}
 	};
 
-	const _handleTouchStart = (e) => {
+	const _handleTouchStart = (e: TouchEvent) => {
 		if (e.touches.length > 1) {
 			isScaling = true;
 			return;
@@ -38,7 +43,7 @@ const mediumZoom = (selector, options = {}) => {
 		isScaling = false;
 	};
 
-	const _handleKeyDown = (event) => {
+	const _handleKeyDown = (event: KeyboardEvent) => {
 		const key = event.key;
 
 		// Close if escape or Tab key is pressed
@@ -47,12 +52,12 @@ const mediumZoom = (selector, options = {}) => {
 		}
 	};
 
-	const update = (options = {}) => {
+	const update = (options: ZoomOptionsParams = {}) => {
 		const newOptions = options;
 
 		if (options.container && options.container instanceof Object) {
 			newOptions.container = {
-				...zoomOptions.container,
+				...(zoomOptions.container instanceof Object ? zoomOptions.container : {}),
 				...options.container,
 			};
 		}
@@ -72,8 +77,8 @@ const mediumZoom = (selector, options = {}) => {
 
 	const clone = (options = {}) => mediumZoom({ ...zoomOptions, ...options });
 
-	const attach = (...selectors) => {
-		const newImages = selectors.reduce(
+	const attach = (...selectors: ZoomSelector[]) => {
+		const newImages = selectors.reduce<HTMLImageElement[]>(
 			(imagesAccumulator, currentSelector) => imagesAccumulator.concat(getImagesFromSelector(currentSelector)),
 			[]
 		);
@@ -95,14 +100,17 @@ const mediumZoom = (selector, options = {}) => {
 		return zoom;
 	};
 
-	const detach = (...selectors) => {
+	const detach = (...selectors: ZoomSelector[]) => {
 		if (active.zoomed) {
 			close();
 		}
 
 		const imagesToDetach =
 			selectors.length > 0
-				? selectors.reduce((imagesAccumulator, currentSelector) => imagesAccumulator.concat(getImagesFromSelector(currentSelector)), [])
+				? selectors.reduce<HTMLImageElement[]>(
+						(imagesAccumulator, currentSelector) => imagesAccumulator.concat(getImagesFromSelector(currentSelector)),
+						[]
+					)
 				: images;
 
 		imagesToDetach.forEach((image) => {
@@ -119,7 +127,7 @@ const mediumZoom = (selector, options = {}) => {
 		return zoom;
 	};
 
-	const on = (type, listener, options = {}) => {
+	const on = (type: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions = {}) => {
 		images.forEach((image) => {
 			image.addEventListener(`medium-zoom:${type}`, listener, options);
 		});
@@ -129,7 +137,7 @@ const mediumZoom = (selector, options = {}) => {
 		return zoom;
 	};
 
-	const off = (type, listener, options = {}) => {
+	const off = (type: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions = {}) => {
 		images.forEach((image) => {
 			image.removeEventListener(`medium-zoom:${type}`, listener, options);
 		});
@@ -150,8 +158,8 @@ const mediumZoom = (selector, options = {}) => {
 			right: 0,
 			bottom: 0,
 		};
-		let viewportWidth;
-		let viewportHeight;
+		let viewportWidth: number;
+		let viewportHeight: number;
 
 		if (zoomOptions.container) {
 			if (zoomOptions.container instanceof Object && 'top' in zoomOptions.container) {
@@ -166,7 +174,9 @@ const mediumZoom = (selector, options = {}) => {
 				viewportHeight = container.height - container.top - container.bottom - zoomOptions.margin * 2;
 			} else if (zoomOptions.container instanceof HTMLElement || typeof zoomOptions.container === 'string') {
 				// The container is given as an element
-				const zoomContainer = isNode(zoomOptions.container) ? zoomOptions.container : document.querySelector(zoomOptions.container);
+				const zoomContainer = isNode(zoomOptions.container)
+					? zoomOptions.container
+					: document.querySelector<HTMLElement>(zoomOptions.container);
 
 				if (zoomContainer) {
 					const { width, height, left, top } = zoomContainer.getBoundingClientRect();
@@ -183,7 +193,7 @@ const mediumZoom = (selector, options = {}) => {
 		viewportHeight ??= container.height - zoomOptions.margin * 2;
 
 		const zoomTarget = active.zoomedHd || active.original;
-		if (!zoomTarget) return;
+		if (!zoomTarget || !active.zoomed) return;
 		const isSvgImage = isSvg(zoomTarget);
 
 		const naturalWidth = isSvgImage ? viewportWidth : zoomTarget.naturalWidth || viewportWidth;
@@ -204,7 +214,7 @@ const mediumZoom = (selector, options = {}) => {
 		}
 	};
 
-	const open = ({ target } = {}) =>
+	const open = ({ target }: ZoomOpenOptions = {}): Promise<Zoom> =>
 		new Promise((resolve) => {
 			if ((target && images.indexOf(target) === -1) || images.length === 0) {
 				resolve(zoom);
@@ -218,6 +228,7 @@ const mediumZoom = (selector, options = {}) => {
 
 			const _handleOpenEnd = () => {
 				isAnimating = false;
+				if (!active.zoomed || !active.original) return resolve(zoom);
 				active.zoomed.removeEventListener('transitionend', _handleOpenEnd);
 				active.original.dispatchEvent(
 					createCustomEvent('medium-zoom:opened', {
@@ -274,8 +285,9 @@ const mediumZoom = (selector, options = {}) => {
 			active.zoomed.addEventListener('click', close);
 			active.zoomed.addEventListener('transitionend', _handleOpenEnd);
 
-			if (active.original.getAttribute('data-zoom-src')) {
-				active.zoomedHd = active.zoomed.cloneNode();
+			const hdSource = active.original.getAttribute('data-zoom-src');
+			if (hdSource) {
+				active.zoomedHd = active.zoomed.cloneNode() as HTMLImageElement;
 
 				// Reset the `scrset` property or the HD image won't load.
 				active.zoomedHd.removeAttribute('srcset');
@@ -283,11 +295,11 @@ const mediumZoom = (selector, options = {}) => {
 				// Remove loading attribute so the browser can load the image normally
 				active.zoomedHd.removeAttribute('loading');
 
-				active.zoomedHd.src = active.zoomed.getAttribute('data-zoom-src');
+				active.zoomedHd.src = hdSource;
 
 				active.zoomedHd.onerror = () => {
 					clearInterval(getZoomTargetSize);
-					console.warn(`Unable to reach the zoom image target ${active.zoomedHd.src}`);
+					console.warn(`Unable to reach the zoom image target ${active.zoomedHd?.src}`);
 					active.zoomedHd = null;
 					_animate();
 				};
@@ -295,6 +307,7 @@ const mediumZoom = (selector, options = {}) => {
 				// We need to access the natural size of the full HD
 				// target as fast as possible to compute the animation.
 				const getZoomTargetSize = setInterval(() => {
+					if (!active.zoomedHd) return;
 					if (__TEST__ ? true : active.zoomedHd.complete) {
 						clearInterval(getZoomTargetSize);
 						active.zoomedHd.classList.add('medium-zoom-image--opened');
@@ -307,7 +320,7 @@ const mediumZoom = (selector, options = {}) => {
 				// If an image has a `srcset` attribuet, we don't know the dimensions of the
 				// zoomed (HD) image (like when `data-zoom-src` is specified).
 				// Therefore the approach is quite similar.
-				active.zoomedHd = active.zoomed.cloneNode();
+				active.zoomedHd = active.zoomed.cloneNode() as HTMLImageElement;
 
 				// Resetting the sizes attribute tells the browser to load the
 				// image best fitting the current viewport size, respecting the `srcset`.
@@ -319,13 +332,15 @@ const mediumZoom = (selector, options = {}) => {
 
 				// Wait for the load event of the hd image. This will fire if the image
 				// is already cached.
-				const loadEventListener = active.zoomedHd.addEventListener('load', () => {
+				const loadEventListener = () => {
+					if (!active.zoomedHd) return;
 					active.zoomedHd.removeEventListener('load', loadEventListener);
 					active.zoomedHd.classList.add('medium-zoom-image--opened');
 					active.zoomedHd.addEventListener('click', close);
 					document.body.appendChild(active.zoomedHd);
 					_animate();
-				});
+				};
+				active.zoomedHd.addEventListener('load', loadEventListener);
 			} else {
 				_animate();
 			}
@@ -337,14 +352,15 @@ const mediumZoom = (selector, options = {}) => {
 			}
 		});
 
-	const close = () =>
+	const close = (): Promise<Zoom> =>
 		new Promise((resolve) => {
-			if (isAnimating || !active.original) {
+			if (isAnimating || !active.original || !active.zoomed) {
 				resolve(zoom);
 				return;
 			}
 
 			const _handleCloseEnd = () => {
+				if (!active.original || !active.zoomed) return resolve(zoom);
 				active.original.classList.remove('medium-zoom-image--hidden');
 				document.body.removeChild(active.zoomed);
 				if (active.zoomedHd) {
@@ -384,7 +400,7 @@ const mediumZoom = (selector, options = {}) => {
 			// Fade out the template so it's not too abrupt
 			if (active.template) {
 				active.template.style.transition = 'opacity 150ms';
-				active.template.style.opacity = 0;
+				active.template.style.opacity = '0';
 			}
 
 			active.original.dispatchEvent(
@@ -402,7 +418,7 @@ const mediumZoom = (selector, options = {}) => {
 			}
 		});
 
-	const toggle = ({ target } = {}) => {
+	const toggle = ({ target }: ZoomOpenOptions = {}) => {
 		if (active.original) {
 			return close();
 		}
@@ -410,39 +426,39 @@ const mediumZoom = (selector, options = {}) => {
 		return open({ target });
 	};
 
-	let images = [];
-	let eventListeners = [];
+	let images: HTMLImageElement[] = [];
+	let eventListeners: Array<{ type: string; listener: EventListenerOrEventListenerObject; options: boolean | AddEventListenerOptions }> =
+		[];
 	let isAnimating = false;
 	let isScaling = false;
 	let scrollTop = 0;
-	let zoomOptions = {
+	let zoomOptions: ZoomOptions = {
 		margin: 0,
 		scrollOffset: 40,
 		container: null,
 		template: null,
 	};
 
-	const active = {
+	const active: ZoomActive = {
 		original: null,
 		zoomed: null,
 		zoomedHd: null,
 		template: null,
 	};
 
-	let optsToApply;
+	let optsToApply: ZoomOptionsParams;
 
 	// Determine initial zoomOptions based on selector or options
 	if (Object.prototype.toString.call(selector) === '[object Object]') {
-		optsToApply = selector;
+		optsToApply = selector as ZoomOptionsParams;
 	} else {
 		optsToApply = options;
 		if (selector || typeof selector === 'string') {
 			// to process empty string as a selector
-			attach(selector);
+			attach(selector as ZoomSelector);
 		}
 	}
 
-	// Apply the default option values
 	zoomOptions = {
 		...zoomOptions,
 		...optsToApply,
@@ -461,7 +477,7 @@ const mediumZoom = (selector, options = {}) => {
 	window.addEventListener('touchcancel', _handleTouchEnd, { passive: true, signal: controller.signal });
 	window.addEventListener('resize', _handleResize, { passive: true, signal: controller.signal });
 
-	const zoom = {
+	const zoom: Zoom = {
 		open,
 		close,
 		toggle,

@@ -1,30 +1,34 @@
-export const isSupported = (node) => node.tagName === 'IMG';
+import type { ZoomOptionsParams, ZoomSelector } from './types';
 
-export const isNodeList = (selector) => Object.prototype.isPrototypeOf.call(NodeList.prototype, selector);
+export const isSupported = (node: Element): node is HTMLImageElement => node.tagName === 'IMG';
 
-export const isNode = (selector) => selector && selector.nodeType === 1;
+export const isNodeList = (selector: ZoomSelector): selector is NodeList =>
+	Object.prototype.isPrototypeOf.call(NodeList.prototype, selector);
 
-export const isSvg = (image) => {
+export const isNode = (selector: ZoomSelector): selector is HTMLElement =>
+	typeof selector === 'object' && 'nodeType' in selector && selector.nodeType === 1;
+
+export const isSvg = (image: HTMLImageElement) => {
 	const source = image.currentSrc || image.src;
-	return source.substr(-4).toLowerCase() === '.svg';
+	return source.slice(-4).toLowerCase() === '.svg';
 };
 
-export const getImagesFromSelector = (selector) => {
+export const getImagesFromSelector = (selector: ZoomSelector) => {
 	try {
 		if (Array.isArray(selector)) {
 			return selector.filter(isSupported);
 		}
 
 		if (isNodeList(selector)) {
-			return Array.from(selector).filter(isSupported);
-		}
-
-		if (isNode(selector)) {
-			return [selector].filter(isSupported);
+			return Array.from(selector as NodeListOf<Element>).filter(isSupported);
 		}
 
 		if (typeof selector === 'string') {
 			return Array.from(document.querySelectorAll(selector)).filter(isSupported);
+		}
+
+		if (isNode(selector)) {
+			return [selector].filter(isSupported);
 		}
 
 		return [];
@@ -44,9 +48,9 @@ export const createOverlay = () => {
 	return overlay;
 };
 
-export const cloneTarget = (template) => {
+export const cloneTarget = <T extends HTMLElement>(template: T) => {
 	const { top, left, width, height } = template.getBoundingClientRect();
-	const clone = template.cloneNode();
+	const clone = template.cloneNode() as T;
 	const scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
 	const scrollLeft = window.scrollX || document.documentElement.scrollLeft || document.body.scrollLeft || 0;
 
@@ -61,7 +65,7 @@ export const cloneTarget = (template) => {
 	return clone;
 };
 
-export const createCustomEvent = (type, params) => {
+export const createCustomEvent = (type: string, params?: CustomEventInit) => {
 	const eventParams = {
 		bubbles: false,
 		cancelable: false,
@@ -72,9 +76,9 @@ export const createCustomEvent = (type, params) => {
 	return new CustomEvent(type, eventParams);
 };
 
-export const getTemplate = (template) => {
+export const getTemplate = (template: ZoomOptionsParams['template']) => {
 	if (!template) return null;
-	const tmpl = isNode(template) ? template : document.querySelector(template);
+	const tmpl = isNode(template) ? template : document.querySelector<HTMLTemplateElement>(template);
 
 	if (!tmpl || tmpl.tagName !== 'TEMPLATE') {
 		throw new Error('The specified template option is not a <template> element.');

@@ -1,4 +1,5 @@
 import babel from '@rollup/plugin-babel';
+import typescript from '@rollup/plugin-typescript';
 import { terser } from 'rollup-plugin-terser';
 import license from 'rollup-plugin-license';
 import replace from '@rollup/plugin-replace';
@@ -14,6 +15,11 @@ const sharedPlugins = [
 		values: {
 			__TEST__: process.env.NODE_ENV === 'test' ? 'true' : 'false',
 		},
+	}),
+	typescript({
+		tsconfig: './tsconfig.json',
+		sourceMap: true,
+		declaration: true,
 	}),
 	babel({
 		babelHelpers: 'bundled',
@@ -38,7 +44,7 @@ const prettifyPlugin = terser({
 
 export default [
 	{
-		input: 'src/index.js',
+		input: 'src/index.ts',
 		output: {
 			file: pkg.module,
 			format: 'es',
@@ -46,7 +52,7 @@ export default [
 		plugins: [...sharedPlugins, license({ banner })],
 	},
 	{
-		input: 'src/index.js',
+		input: 'src/index.ts',
 		output: {
 			name: 'mediumZoom',
 			file: pkg.main.replace('.min', ''),
@@ -55,7 +61,7 @@ export default [
 		plugins: [...sharedPlugins, prettifyPlugin],
 	},
 	{
-		input: 'src/index.js',
+		input: 'src/index.ts',
 		output: {
 			name: 'mediumZoom',
 			file: pkg.main,

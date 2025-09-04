@@ -1,6 +1,6 @@
 export type ZoomSelector = string | HTMLElement | HTMLElement[] | NodeList;
 
-export interface ZoomOptions {
+export interface ZoomOptionsParams {
 	/**
 	 * The space outside the zoomed image.
 	 *
@@ -20,14 +20,25 @@ export interface ZoomOptions {
 	 *
 	 * @default null
 	 */
-	container?: string | HTMLElement | ZoomContainer;
+	container?: string | HTMLElement | ZoomContainer | null;
 
 	/**
 	 * The template element to display on zoom.
 	 *
 	 * @default null
 	 */
-	template?: string | HTMLTemplateElement;
+	template?: string | HTMLTemplateElement | null;
+}
+
+export interface ZoomOptions extends Required<ZoomOptionsParams> {
+	template: HTMLTemplateElement | null;
+}
+
+export interface ZoomActive {
+	original: HTMLImageElement | null;
+	zoomed: HTMLImageElement | null;
+	zoomedHd: HTMLImageElement | null;
+	template?: HTMLElement | null;
 }
 
 export interface ZoomContainer {
@@ -45,9 +56,8 @@ export interface ZoomOpenOptions {
 	 *
 	 * If not specified, the target is the first image of the zoom.
 	 *
-	 * @default null
 	 */
-	target?: HTMLElement;
+	target?: HTMLImageElement;
 }
 
 export interface Zoom {
@@ -145,29 +155,10 @@ export interface Zoom {
 	 *
 	 * @returns The current zoomed image.
 	 */
-	getZoomedImage(): HTMLElement;
+	getZoomedImage(): ZoomActive['original'];
 
 	/**
 	 * Removes all previously attached event listeners.
 	 */
 	destroy(): void;
 }
-
-/**
- * Attaches a zoom effect on a selection of images.
- *
- * @param selector The selector to target the images.
- * @param options The options of the zoom.
- * @returns The zoom.
- */
-declare function mediumZoom(selector?: ZoomSelector, options?: ZoomOptions): Zoom;
-
-/**
- * Attaches a zoom effect on a selection of images.
- *
- * @param options The options of the zoom.
- * @returns The zoom.
- */
-declare function mediumZoom(options?: ZoomOptions): Zoom;
-
-export default mediumZoom;
