@@ -40,10 +40,9 @@ export const getImagesFromSelector = (selector) => {
 	}
 };
 
-export const createOverlay = (background) => {
+export const createOverlay = () => {
 	const overlay = document.createElement('div');
 	overlay.classList.add('medium-zoom-overlay');
-	overlay.style.background = background;
 
 	return overlay;
 };

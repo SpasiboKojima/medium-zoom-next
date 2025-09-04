@@ -120,7 +120,6 @@ describe('mediumZoom()', () => {
 
 				expect(zoom.getOptions()).toEqual({
 					margin: 0,
-					background: '#fff',
 					scrollOffset: 40,
 					container: null,
 					template: null,
@@ -141,7 +140,6 @@ describe('mediumZoom()', () => {
 			expect(zoom.getImages()).toEqual([]);
 			expect(zoom.getOptions()).toEqual({
 				margin: 0,
-				background: '#fff',
 				scrollOffset: 40,
 				container: null,
 				template: null,
@@ -157,7 +155,6 @@ describe('mediumZoom()', () => {
 			expect(zoom.getImages()).toEqual([]);
 			expect(zoom.getOptions()).toEqual({
 				margin: 0,
-				background: '#fff',
 				scrollOffset: 40,
 				container: null,
 				template: null,
@@ -170,7 +167,6 @@ describe('mediumZoom()', () => {
 
 			const options = {
 				margin: 24,
-				background: '#BADA55',
 				scrollOffset: 124,
 			};
 			const zoom = mediumZoom(options);
@@ -178,7 +174,6 @@ describe('mediumZoom()', () => {
 			expect(zoom.getImages()).toEqual([]);
 			expect(zoom.getOptions()).toEqual({
 				margin: 24,
-				background: '#BADA55',
 				scrollOffset: 124,
 				container: null,
 				template: null,
@@ -196,12 +191,11 @@ describe('mediumZoom()', () => {
 				root.appendChild(image1);
 				root.appendChild(image2);
 
-				const zoom = mediumZoom('img', { background: '#BADA55' });
+				const zoom = mediumZoom('img', { margin: 32 });
 
 				expect(zoom.getImages()).toEqual([image1, image2]);
 				expect(zoom.getOptions()).toEqual({
-					margin: 0,
-					background: '#BADA55',
+					margin: 32,
 					scrollOffset: 40,
 					container: null,
 					template: null,
@@ -219,7 +213,6 @@ describe('mediumZoom()', () => {
 				expect(zoom.getImages()).toEqual([image1]);
 				expect(zoom.getOptions()).toEqual({
 					margin: 0,
-					background: '#fff',
 					scrollOffset: 40,
 					container: null,
 					template: null,
@@ -232,7 +225,6 @@ describe('mediumZoom()', () => {
 
 				const options = {
 					margin: 24,
-					background: '#BADA55',
 					scrollOffset: 124,
 				};
 				const zoom = mediumZoom('img', options);
@@ -240,7 +232,6 @@ describe('mediumZoom()', () => {
 				expect(zoom.getImages()).toEqual([image1]);
 				expect(zoom.getOptions()).toEqual({
 					margin: 24,
-					background: '#BADA55',
 					scrollOffset: 124,
 					container: null,
 					template: null,
@@ -516,25 +507,6 @@ describe('update()', () => {
 		expect(updatedOptions).toEqual({ ...initialOptions, margin: 48 });
 	});
 
-	test('update({ background }) updates options and renders the background correctly', () => {
-		expect.assertions(2);
-
-		const image = document.createElement('img');
-		root.appendChild(image);
-
-		const zoom = mediumZoom(image);
-		const initialOptions = zoom.getOptions();
-		const updatedOptions = zoom.update({ background: 'rgb(0, 0, 0)' }).getOptions();
-
-		zoom.open();
-
-		expect(updatedOptions).toEqual({
-			...initialOptions,
-			background: 'rgb(0, 0, 0)',
-		});
-		expect(document.querySelector('.medium-zoom-overlay').style.backgroundColor).toBe('rgb(0, 0, 0)');
-	});
-
 	test('update({ scrollOffset }) updates options', () => {
 		const zoom = mediumZoom();
 		const initialOptions = zoom.getOptions();
@@ -621,7 +593,6 @@ describe('update()', () => {
 		const updatedOptions = zoom
 			.update({
 				margin: 24,
-				background: '#BADA55',
 				scrollOffset: 0,
 			})
 			.getOptions();
@@ -629,7 +600,6 @@ describe('update()', () => {
 		expect(updatedOptions).toEqual({
 			...initialOptions,
 			margin: 24,
-			background: '#BADA55',
 			scrollOffset: 0,
 		});
 	});
@@ -645,31 +615,31 @@ describe('clone()', () => {
 	});
 
 	test('clone() clones the options', () => {
-		const zoom = mediumZoom({ background: '#000' });
+		const zoom = mediumZoom({ margin: 32 });
 		const clonedZoom = zoom.clone();
 
 		expect(clonedZoom.getOptions()).toEqual(zoom.getOptions());
 	});
 
 	test('clone({}) clones the options', () => {
-		const zoom = mediumZoom({ background: '#000' });
+		const zoom = mediumZoom({ margin: 32 });
 		const clonedZoom = zoom.clone({});
 
 		expect(clonedZoom.getOptions()).toEqual(zoom.getOptions());
 	});
 
-	test('mediumZoom({ background }).clone({ background }) overrides the options', () => {
-		const zoom = mediumZoom({ background: '#000' });
-		const clonedZoom = zoom.clone({ background: 'yellow' });
+	test('mediumZoom({ margin }).clone({ margin }) overrides the options', () => {
+		const zoom = mediumZoom({ margin: 32 });
+		const clonedZoom = zoom.clone({ margin: 48 });
 
 		expect(clonedZoom.getOptions()).toEqual({
 			...zoom.getOptions(),
-			background: 'yellow',
+			margin: 48,
 		});
 	});
 
-	test('mediumZoom({ background }).clone({ margin }) extends the options', () => {
-		const zoom = mediumZoom({ background: '#000' });
+	test('mediumZoom({ scrollOffset }).clone({ margin }) extends the options', () => {
+		const zoom = mediumZoom({ scrollOffset: 64 });
 		const clonedZoom = zoom.clone({ margin: 48 });
 
 		expect(clonedZoom.getOptions()).toEqual({
@@ -691,7 +661,6 @@ describe('getOptions()', () => {
 		const zoom = mediumZoom();
 
 		expect(zoom.getOptions()).toEqual({
-			background: '#fff',
 			margin: 0,
 			scrollOffset: 40,
 			container: null,
@@ -700,11 +669,10 @@ describe('getOptions()', () => {
 	});
 
 	test('mediumZoom(options).getOptions() returns the options', () => {
-		const zoom = mediumZoom({ background: '#000' });
+		const zoom = mediumZoom({ margin: 32 });
 
 		expect(zoom.getOptions()).toEqual({
-			background: '#000',
-			margin: 0,
+			margin: 32,
 			scrollOffset: 40,
 			container: null,
 			template: null,
@@ -955,18 +923,6 @@ describe('open()', () => {
 		expect(document.querySelector('.medium-zoom-image--opened').src).toEqual(img.currentSrc);
 		expect(document.querySelector('.medium-zoom-overlay')).toBeTruthy();
 		expect(document.querySelector('.medium-zoom--opened')).toBeTruthy();
-		expect(root).toMatchSnapshot();
-	});
-
-	test('mediumZoom({ background }).open() renders correctly', async () => {
-		expect.assertions(1);
-
-		const image = document.createElement('img');
-		root.appendChild(image);
-
-		const zoom = mediumZoom('img', { background: '#BADA55' });
-		await zoom.open();
-
 		expect(root).toMatchSnapshot();
 	});
 

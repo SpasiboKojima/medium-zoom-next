@@ -1,12 +1,10 @@
 import mediumZoom from 'medium-zoom';
+import 'medium-zoom/dist/style.css';
 
 const zoomDefault = mediumZoom('#zoom-default');
 const zoomMargin = mediumZoom('#zoom-margin', { margin: 48 });
-const zoomBackground = mediumZoom('#zoom-background', { background: '#212530' });
-const zoomScrollOffset = mediumZoom('#zoom-scrollOffset', {
-	scrollOffset: 0,
-	background: 'rgba(25, 18, 25, .9)',
-});
+const zoomBackground = mediumZoom('#zoom-background');
+const zoomScrollOffset = mediumZoom('#zoom-scrollOffset', { scrollOffset: 0 });
 
 // Trigger the zoom when the button is clicked
 const zoomToTrigger = mediumZoom('#zoom-trigger');
@@ -27,6 +25,12 @@ observedZooms.forEach((zoom) => {
 	zoom.on('open', (event) => {
 		const time = new Date().toLocaleTimeString();
 		history.innerHTML += `<li>Image "<em>${event.target.alt}</em>" was zoomed at ${time}</li>`;
+
+		if (event.target.id === 'zoom-background') {
+			document.body.classList.add('custom-background');
+		} else {
+			document.body.classList.remove('custom-background');
+		}
 	});
 
 	zoom.on('detach', (event) => {

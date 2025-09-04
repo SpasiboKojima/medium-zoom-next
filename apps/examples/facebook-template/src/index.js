@@ -1,7 +1,7 @@
 import mediumZoom from 'medium-zoom';
+import 'medium-zoom/dist/style.css';
 
 const zoomFacebook = mediumZoom('.container img', {
-	background: 'rgba(0, 0, 0, 0.9)',
 	template: '#template-facebook',
 	container: '[data-zoom-container]',
 });

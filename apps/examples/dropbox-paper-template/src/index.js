@@ -1,7 +1,7 @@
 import mediumZoom from 'medium-zoom';
+import 'medium-zoom/dist/style.css';
 
 const zoomPaper = mediumZoom('.container img', {
-	background: 'rgba(247, 249, 250, 0.97)',
 	margin: 16,
 	template: '#template-dropbox-paper',
 	container: '[data-zoom-container]',

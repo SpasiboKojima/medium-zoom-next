@@ -9,13 +9,6 @@ export interface ZoomOptions {
 	margin?: number;
 
 	/**
-	 * The background of the overlay.
-	 *
-	 * @default '#fff'
-	 */
-	background?: string;
-
-	/**
 	 * The number of pixels to scroll to close the zoom.
 	 *
 	 * @default 40

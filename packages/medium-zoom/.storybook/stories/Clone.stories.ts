@@ -16,7 +16,7 @@ export const WithMargin: StoryObj = () => `
   <img src="image-2.jpg">
 `;
 WithMargin.play = async () => {
-	const zoom = window.mediumZoom({ background: '#000' });
+	const zoom = window.mediumZoom({ scrollOffset: 64 });
 	const clonedZoom = zoom.clone({ margin: 100 });
 	clonedZoom.attach('img');
 };
@@ -31,7 +31,7 @@ WithMargin.parameters = {
 			transform: (source) =>
 				source.concat(`
     <script>
-      const zoom = mediumZoom({ background: '#000' });
+      const zoom = mediumZoom({ scrollOffset: 64 });
       const clonedZoom = zoom.clone({ margin: 100 })
       clonedZoom.attach('img')
     </script>`),

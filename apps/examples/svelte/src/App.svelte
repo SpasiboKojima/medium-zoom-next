@@ -1,5 +1,6 @@
 <script>
 import ImageZoom from './lib/ImageZoom.svelte';
+import 'medium-zoom/dist/style.css';
 </script>
 
 <article class="container">
@@ -25,6 +26,6 @@ import ImageZoom from './lib/ImageZoom.svelte';
   <ImageZoom
     src="images/image-3.jpg"
     alt="Zoom 3"
-    options={{ background: 'black' }}
+    options={{ margin: 12 }}
   />
 </article>

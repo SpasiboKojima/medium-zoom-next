@@ -117,7 +117,7 @@ Or import the library with a script tag:
 
 ```html
 <script src="node_modules/medium-zoom/dist/medium-zoom.min.js"></script>
-<style src="node_modules/medium-zoom/dist/style.css"></style>
+<link href="node_modules/medium-zoom/dist/style.css" rel="stylesheet" />
 ```
 
 
@@ -168,7 +168,6 @@ The options enable the customization of the zoom. They are defined as an object 
 | Property       | Type                                  | Default  | Description                                                                 |
 | -------------- | ------------------------------------- | -------- | --------------------------------------------------------------------------- |
 | `margin`       | `number`                              | `0`      | The space outside the zoomed image                                          |
-| `background`   | `string`                              | `"#fff"` | The background of the overlay                                               |
 | `scrollOffset` | `number`                              | `40`     | The number of pixels to scroll to close the zoom                            |
 | `container`    | `string` \| `HTMLElement` \| `object` | `null`   | The viewport to render the zoom in<br> [Read more →](docs/container.md)     |
 | `template`     | `string` \| `HTMLTemplateElement`     | `null`   | The template element to display on zoom<br> [Read more →](docs/template.md) |
@@ -176,11 +175,18 @@ The options enable the customization of the zoom. They are defined as an object 
 ```js
 mediumZoom('[data-zoomable]', {
   margin: 24,
-  background: '#BADA55',
   scrollOffset: 0,
   container: '#zoom-container',
   template: '#zoom-template',
 })
+```
+
+You can also override provided styles with your own CSS, to customize things like the background of overlay.
+
+```css
+.medium-zoom-overlay {
+	background: #BADA55;
+}
 ```
 
 ### Methods
@@ -253,7 +259,7 @@ Updates the options and returns the zoom.
 ```js
 const zoom = mediumZoom('[data-zoomable]')
 
-zoom.update({ background: '#BADA55' })
+zoom.update({ margin: 32 })
 ```
 
 _Emits an event [`update`](#events) on each image of the zoom._
@@ -263,11 +269,11 @@ _Emits an event [`update`](#events) on each image of the zoom._
 Clones the zoom with provided options merged with the current ones and returns the zoom.
 
 ```js
-const zoom = mediumZoom('[data-zoomable]', { background: '#BADA55' })
+const zoom = mediumZoom('[data-zoomable]', { container: '#zoom-container' })
 
 const clonedZoom = zoom.clone({ margin: 48 })
 
-clonedZoom.getOptions() // => { background: '#BADA55', margin: 48, ... }
+clonedZoom.getOptions() // => { container: '#zoom-container', margin: 48, ... }
 ```
 
 #### `on(type: string, listener: () => void, options?: boolean | AddEventListenerOptions): Zoom`
@@ -319,9 +325,9 @@ The zoom object is accessible in `event.detail.zoom`.
 Returns the zoom options as an object.
 
 ```js
-const zoom = mediumZoom({ background: '#BADA55' })
+const zoom = mediumZoom({ container: '#zoom-container' })
 
-zoom.getOptions() // => { background: '#BADA55', ... }
+zoom.getOptions() // => { container: '#zoom-container', ... }
 ```
 
 #### `getImages(): HTMLElement[]`

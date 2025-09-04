@@ -35,14 +35,19 @@ Default.parameters = {
 	},
 };
 
-export const BackgroundDark: StoryObj = () => `
+export const BackgroundRed: StoryObj = () => `
   <img src="image-3.jpg">
+  <style>
+    .medium-zoom-overlay {
+      background-color: red;
+    }
+  </style>
 `;
-BackgroundDark.play = async () => {
-	window.mediumZoom('img', { background: '#212530' });
+BackgroundRed.play = async () => {
+	window.mediumZoom('img');
 };
-BackgroundDark.storyName = 'background (dark)';
-BackgroundDark.parameters = {
+BackgroundRed.storyName = 'background (red)';
+BackgroundRed.parameters = {
 	docs: {
 		description: {
 			story: 'This is a zoom with a dark background.',
@@ -52,9 +57,7 @@ BackgroundDark.parameters = {
 			transform: (source) =>
 				source.concat(`
 <script>
-  const zoom = mediumZoom('img', {
-    background: '#212530',
-  });
+  const zoom = mediumZoom('img');
 </script>`),
 		},
 	},
@@ -63,7 +66,7 @@ BackgroundDark.parameters = {
 export const BackgroundTransparent: StoryObj = () => `
   <img src="image-4.jpg">
   <style>
-    #wrapper::before {
+    #storybook-root::before {
       content: '';
       width: 100%;
       height: 100%;
@@ -75,10 +78,14 @@ export const BackgroundTransparent: StoryObj = () => `
       position: absolute;
       z-index: -1;
     }
+
+    .medium-zoom-overlay {
+      background-color: transparent;
+    }
   </style>
 `;
 BackgroundTransparent.play = async () => {
-	window.mediumZoom('img', { background: 'rgba(25, 18, 25, .5)' });
+	window.mediumZoom('img');
 };
 BackgroundTransparent.storyName = 'background (transparent)';
 BackgroundTransparent.parameters = {
@@ -91,9 +98,7 @@ BackgroundTransparent.parameters = {
 			transform: (source) =>
 				source.concat(`
 <script>
-  const zoom = mediumZoom('img', {
-    background: 'rgba(25, 18, 25, .5)',
-  });
+  const zoom = mediumZoom('img');
 </script>`),
 		},
 	},
@@ -175,7 +180,7 @@ export const ContainerDomElement: StoryObj = () => `
   </style>
 `;
 ContainerDomElement.play = async () => {
-	window.mediumZoom('img', { container: '#zoom-container', background: 'transparent' });
+	window.mediumZoom('img', { container: '#zoom-container' });
 };
 ContainerDomElement.storyName = 'container (DOM element)';
 ContainerDomElement.parameters = {
@@ -189,8 +194,7 @@ ContainerDomElement.parameters = {
 				source.concat(`
 <script>
   const zoom = mediumZoom('img', {
-    container: '#zoom-container',
-    background: 'transparent',
+    container: '#zoom-container'
   });
 </script>`),
 		},
@@ -344,11 +348,14 @@ export const TemplateDropboxPaper: StoryObj = () => `
       border-radius: 5px;
       border: 1px solid rgba(99, 114, 130, 0.4);
     }
+
+    .medium-zoom-overlay {
+      background-color: rgba(247, 249, 250, 0.97);
+    }
   </style>
 `;
 TemplateDropboxPaper.play = async () => {
 	const zoom = window.mediumZoom('img', {
-		background: 'rgba(247, 249, 250, 0.97)',
 		margin: 16,
 		template: '#template-dropbox-paper',
 		container: '[data-zoom-container]',
@@ -376,7 +383,6 @@ TemplateDropboxPaper.parameters = {
 				source.concat(`
 <script>
   const zoom = mediumZoom('img', {
-    background: 'rgba(247, 249, 250, 0.97)',
     margin: 16,
     template: '#template-dropbox-paper',
     container: '[data-zoom-container]',
@@ -473,11 +479,14 @@ export const TemplateFacebook: StoryObj = () => `
       cursor: pointer;
       fill: #ddd;
     }
+
+    .medium-zoom-overlay {
+      background-color: rgba(0, 0, 0, 0.9);
+    }
   </style>
 `;
 TemplateFacebook.play = async () => {
 	const zoom = window.mediumZoom('.container img', {
-		background: 'rgba(0, 0, 0, 0.9)',
 		template: '#template-facebook',
 		container: '[data-zoom-container]',
 	});
@@ -504,7 +513,6 @@ TemplateFacebook.parameters = {
 				source.concat(`
 <script>
   const zoom = mediumZoom('.container img', {
-    background: 'rgba(0, 0, 0, 0.9)',
     template: '#template-facebook',
     container: '[data-zoom-container]',
   });

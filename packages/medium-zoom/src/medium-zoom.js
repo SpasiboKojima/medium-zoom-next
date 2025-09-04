@@ -50,10 +50,6 @@ const mediumZoom = (selector, options = {}) => {
 	const update = (options = {}) => {
 		const newOptions = options;
 
-		if (options.background) {
-			overlay.style.background = options.background;
-		}
-
 		if (options.container && options.container instanceof Object) {
 			newOptions.container = {
 				...zoomOptions.container,
@@ -453,14 +449,13 @@ const mediumZoom = (selector, options = {}) => {
 	// Apply the default option values
 	zoomOptions = {
 		margin: 0,
-		background: '#fff',
 		scrollOffset: 40,
 		container: null,
 		template: null,
 		...zoomOptions,
 	};
 
-	const overlay = createOverlay(zoomOptions.background);
+	const overlay = createOverlay();
 
 	document.addEventListener('click', _handleClick);
 	document.addEventListener('keyup', _handleKeyUp);

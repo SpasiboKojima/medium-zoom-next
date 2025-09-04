@@ -1,6 +1,7 @@
 .medium-zoom-overlay {
 	position: fixed;
 	inset: 0;
+	background: rgba(0, 0, 0, 0.75);
 	opacity: 0;
 	transition: opacity 300ms;
 	will-change: opacity;

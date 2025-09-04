@@ -1,4 +1,5 @@
 import { ImageZoom } from './ImageZoom';
+import 'medium-zoom/dist/style.css';
 
 export function App() {
 	return (
@@ -19,7 +20,7 @@ export function App() {
 				blanditiis error beatae vel non vero dolor nemo. Animi nemo quisquam ducimus!
 			</p>
 
-			<ImageZoom src="images/image-3.jpg" alt="Zoom 3" options={{ background: 'yellow' }} />
+			<ImageZoom src="images/image-3.jpg" alt="Zoom 3" options={{ margin: 12 }} />
 		</article>
 	);
 }

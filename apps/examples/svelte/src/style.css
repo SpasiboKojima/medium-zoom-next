@@ -35,3 +35,7 @@ img {
 	padding: 16px;
 	margin: 48px auto;
 }
+
+.medium-zoom-overlay {
+	background: black;
+}

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ImageZoom from './components/ImageZoom.vue';
+import 'medium-zoom/dist/style.css';
 </script>
 
 <template>
@@ -26,7 +27,7 @@ import ImageZoom from './components/ImageZoom.vue';
     <ImageZoom
       src="images/image-3.jpg"
       alt="Zoom 3"
-      :options="{ background: 'black' }"
+      :options="{ margin: 12 }"
     />
   </article>
 </template>

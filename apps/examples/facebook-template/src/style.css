@@ -39,7 +39,6 @@ img {
 .facebook-wrapper {
 	position: fixed;
 	top: 0;
-	top: 0;
 	right: 4rem;
 	bottom: 0;
 	left: 4rem;
@@ -74,4 +73,8 @@ img {
 	width: 32px;
 	cursor: pointer;
 	fill: #ddd;
+}
+
+.medium-zoom-overlay {
+	background: rgba(0, 0, 0, 0.9);
 }

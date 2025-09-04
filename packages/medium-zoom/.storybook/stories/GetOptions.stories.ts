@@ -16,7 +16,7 @@ export const Default: StoryObj = () => `
   <img src="image-2.jpg">
 `;
 Default.play = async () => {
-	const zoom = window.mediumZoom({ background: '#000', margin: 48 });
+	const zoom = window.mediumZoom({ scrollOffset: 64, margin: 48 });
 	console.group('getOptions()');
 	console.log(zoom.getOptions());
 	console.groupEnd();
@@ -32,7 +32,7 @@ Default.parameters = {
 			transform: (source) =>
 				source.concat(`
   <script>
-    const zoom = mediumZoom({ background: '#000', margin: 48 });
+    const zoom = mediumZoom({ scrollOffset: 64, margin: 48 });
 
     console.group('getOptions()');
     console.log(zoom.getOptions());

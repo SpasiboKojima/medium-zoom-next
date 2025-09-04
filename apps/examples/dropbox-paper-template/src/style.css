@@ -111,3 +111,7 @@ img {
 	border: 1px solid rgba(99, 114, 130, 0.4);
 	border-radius: 5px;
 }
+
+.medium-zoom-overlay {
+	background: rgba(247, 249, 250, 0.97);
+}

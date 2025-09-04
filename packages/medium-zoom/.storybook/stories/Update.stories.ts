@@ -25,7 +25,6 @@ MultipleOptions.play = async () => {
 		button.addEventListener('click', () => {
 			zoom.update({
 				margin: 100,
-				background: 'yellow',
 				scrollOffset: 0,
 			});
 		});
@@ -47,7 +46,6 @@ MultipleOptions.parameters = {
 
   button.addEventListener('click', () => zoom.update({
     margin: 100,
-    background: 'yellow',
     scrollOffset: 0,
   }));
 </script>`),
