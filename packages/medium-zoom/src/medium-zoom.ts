@@ -6,6 +6,8 @@ declare global {
 }
 
 const mediumZoom = (selector?: ZoomSelector | ZoomOptionsParams, options: ZoomOptionsParams = {}) => {
+	const controller = new AbortController();
+
 	const _handleResize = () => {
 		const browserScale = window.visualViewport?.scale ?? 1;
 
@@ -192,7 +194,7 @@ const mediumZoom = (selector?: ZoomSelector | ZoomOptionsParams, options: ZoomOp
 		viewportWidth ??= container.width - zoomOptions.margin * 2;
 		viewportHeight ??= container.height - zoomOptions.margin * 2;
 
-		const zoomTarget = active.zoomedHd || active.original;
+		const zoomTarget = active.zoomed || active.original;
 		if (!zoomTarget || !active.zoomed) return;
 		const isSvgImage = isSvg(zoomTarget);
 
@@ -208,11 +210,89 @@ const mediumZoom = (selector?: ZoomSelector | ZoomOptionsParams, options: ZoomOp
 		const transform = `scale(${scale}) translate(${translateX}px, ${translateY}px) translateZ(0)`;
 
 		active.zoomed.style.transform = transform;
-
-		if (active.zoomedHd) {
-			active.zoomedHd.style.transform = transform;
-		}
 	};
+
+	const _prepareZoomedImage = (original: HTMLImageElement, options: { isChange?: boolean } = {}): Promise<HTMLImageElement> =>
+		new Promise((resolve) => {
+			const zoomed = cloneTarget(original);
+
+			// If the selected <img> tag is inside a <picture> tag, set the
+			// currently-applied source as the cloned `src=` attribute.
+			// (as these might differ, or src= might be unset in some cases)
+			if (original.parentElement?.tagName === 'PICTURE' && original.currentSrc) {
+				zoomed.src = original.currentSrc;
+			}
+
+			if (options.isChange) {
+				zoomed.classList.add('medium-zoom-image--opened', 'medium-zoom-image--change');
+			} else {
+				zoomed.classList.add('medium-zoom-image--opened');
+			}
+
+			const hdSource = original.getAttribute('data-zoom-src');
+			if (hdSource) {
+				const zoomedHd: HTMLImageElement = zoomed.cloneNode() as HTMLImageElement;
+
+				// Reset the `scrset` property or the HD image won't load.
+				zoomedHd.removeAttribute('srcset');
+				zoomedHd.removeAttribute('sizes');
+				// Remove loading attribute so the browser can load the image normally
+				zoomedHd.removeAttribute('loading');
+
+				zoomedHd.src = hdSource;
+
+				zoomedHd.onerror = () => {
+					clearInterval(getZoomTargetSize);
+					console.warn(`Unable to reach the zoom image target ${zoomedHd?.src}`);
+					active.zoomed = zoomed;
+					resolve(zoomed);
+				};
+
+				// We need to access the natural size of the full HD
+				// target as fast as possible to compute the animation.
+				const getZoomTargetSize = setInterval(() => {
+					if (__TEST__ ? true : zoomedHd.complete) {
+						clearInterval(getZoomTargetSize);
+						resolve(zoomedHd);
+					}
+				}, 10);
+
+				if (__TEST__) {
+					// setInterval is not triggered in test environment.
+					// Calling this function manually makes testing the open() function possible.
+					resolve(zoomedHd);
+				}
+			} else if (original.hasAttribute('srcset')) {
+				// If an image has a `srcset` attribuet, we don't know the dimensions of the
+				// zoomed (HD) image (like when `data-zoom-src` is specified).
+				// Therefore the approach is quite similar.
+				const zoomedHd = zoomed.cloneNode() as HTMLImageElement;
+
+				// Resetting the sizes attribute tells the browser to load the
+				// image best fitting the current viewport size, respecting the `srcset`.
+				zoomedHd.removeAttribute('sizes');
+
+				// In Firefox, the `loading` attribute needs to be set to `eager` (default
+				// value) for the load event to be fired.
+				zoomedHd.removeAttribute('loading');
+
+				// Wait for the load event of the hd image. This will fire if the image
+				// is already cached.
+				const loadEventListener = () => {
+					zoomedHd.removeEventListener('load', loadEventListener);
+					resolve(zoomedHd);
+				};
+				zoomedHd.addEventListener('load', loadEventListener);
+
+				if (__TEST__) {
+					// The event `load` is not triggered in test environment.
+					// Calling this function manually makes testing the open() function possible.
+					resolve(zoomedHd);
+				}
+			} else {
+				resolve(zoomed);
+			}
+		});
 
 	const open = ({ target }: ZoomOpenOptions = {}): Promise<Zoom> =>
 		new Promise((resolve) => {
@@ -239,6 +319,27 @@ const mediumZoom = (selector?: ZoomSelector | ZoomOptionsParams, options: ZoomOp
 				resolve(zoom);
 			};
 
+			const _finishOpen = (imageElement: HTMLImageElement) => {
+				document.body.appendChild(imageElement);
+				imageElement.addEventListener('click', close);
+				imageElement.addEventListener('transitionend', _handleOpenEnd);
+				active.original?.classList.add('medium-zoom-image--hidden');
+
+				window.requestAnimationFrame(() => {
+					document.body.classList.add('medium-zoom--opened');
+				});
+
+				active.zoomed = imageElement;
+
+				_animate();
+
+				if (__TEST__) {
+					// The event `transitionend` is not triggered in test environment.
+					// Calling this function manually makes testing the open() function possible.
+					_handleOpenEnd();
+				}
+			};
+
 			if (target) {
 				// The zoom was triggered manually via a click
 				active.original = target;
@@ -255,7 +356,6 @@ const mediumZoom = (selector?: ZoomSelector | ZoomOptionsParams, options: ZoomOp
 
 			scrollTop = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
 			isAnimating = true;
-			active.zoomed = cloneTarget(active.original);
 
 			document.body.appendChild(overlay);
 
@@ -266,90 +366,50 @@ const mediumZoom = (selector?: ZoomSelector | ZoomOptionsParams, options: ZoomOp
 				document.body.appendChild(active.template);
 			}
 
-			// If the selected <img> tag is inside a <picture> tag, set the
-			// currently-applied source as the cloned `src=` attribute.
-			// (as these might differ, or src= might be unset in some cases)
-			if (active.original.parentElement && active.original.parentElement.tagName === 'PICTURE' && active.original.currentSrc) {
-				active.zoomed.src = active.original.currentSrc;
+			_prepareZoomedImage(active.original, {}).then(_finishOpen);
+		});
+
+	const change = ({ target }: ZoomOpenOptions): Promise<Zoom> =>
+		new Promise((resolve) => {
+			if ((target && images.indexOf(target) === -1) || images.length === 0) {
+				resolve(zoom);
+				return;
 			}
 
-			document.body.appendChild(active.zoomed);
+			if (isAnimating || !active.original || !active.zoomed) {
+				resolve(zoom);
+				return;
+			}
 
-			window.requestAnimationFrame(() => {
-				document.body.classList.add('medium-zoom--opened');
-			});
+			const _finishOpen = (imageElement: HTMLImageElement) => {
+				imageElement.addEventListener('click', close);
+				document.body.appendChild(imageElement);
+				if (active.zoomed) {
+					document.body.removeChild(active.zoomed);
+				}
+				active.zoomed = imageElement;
+				active.original?.classList.add('medium-zoom-image--hidden');
 
-			active.original.classList.add('medium-zoom-image--hidden');
-			active.zoomed.classList.add('medium-zoom-image--opened');
-
-			active.zoomed.addEventListener('click', close);
-			active.zoomed.addEventListener('transitionend', _handleOpenEnd);
-
-			const hdSource = active.original.getAttribute('data-zoom-src');
-			if (hdSource) {
-				active.zoomedHd = active.zoomed.cloneNode() as HTMLImageElement;
-
-				// Reset the `scrset` property or the HD image won't load.
-				active.zoomedHd.removeAttribute('srcset');
-				active.zoomedHd.removeAttribute('sizes');
-				// Remove loading attribute so the browser can load the image normally
-				active.zoomedHd.removeAttribute('loading');
-
-				active.zoomedHd.src = hdSource;
-
-				active.zoomedHd.onerror = () => {
-					clearInterval(getZoomTargetSize);
-					console.warn(`Unable to reach the zoom image target ${active.zoomedHd?.src}`);
-					active.zoomedHd = null;
-					_animate();
-				};
-
-				// We need to access the natural size of the full HD
-				// target as fast as possible to compute the animation.
-				const getZoomTargetSize = setInterval(() => {
-					if (!active.zoomedHd) return;
-					if (__TEST__ ? true : active.zoomedHd.complete) {
-						clearInterval(getZoomTargetSize);
-						active.zoomedHd.classList.add('medium-zoom-image--opened');
-						active.zoomedHd.addEventListener('click', close);
-						document.body.appendChild(active.zoomedHd);
-						_animate();
-					}
-				}, 10);
-			} else if (active.original.hasAttribute('srcset')) {
-				// If an image has a `srcset` attribuet, we don't know the dimensions of the
-				// zoomed (HD) image (like when `data-zoom-src` is specified).
-				// Therefore the approach is quite similar.
-				active.zoomedHd = active.zoomed.cloneNode() as HTMLImageElement;
-
-				// Resetting the sizes attribute tells the browser to load the
-				// image best fitting the current viewport size, respecting the `srcset`.
-				active.zoomedHd.removeAttribute('sizes');
-
-				// In Firefox, the `loading` attribute needs to be set to `eager` (default
-				// value) for the load event to be fired.
-				active.zoomedHd.removeAttribute('loading');
-
-				// Wait for the load event of the hd image. This will fire if the image
-				// is already cached.
-				const loadEventListener = () => {
-					if (!active.zoomedHd) return;
-					active.zoomedHd.removeEventListener('load', loadEventListener);
-					active.zoomedHd.classList.add('medium-zoom-image--opened');
-					active.zoomedHd.addEventListener('click', close);
-					document.body.appendChild(active.zoomedHd);
-					_animate();
-				};
-				active.zoomedHd.addEventListener('load', loadEventListener);
-			} else {
 				_animate();
+
+				isAnimating = false;
+				resolve(zoom);
+			};
+
+			active.original.classList.remove('medium-zoom-image--hidden');
+
+			if (target) {
+				// The zoom was triggered manually via a click
+				active.original = target;
+			} else {
+				// The zoom was triggered programmatically, select the first image in the list
+				[active.original] = images;
 			}
 
-			if (__TEST__) {
-				// The event `transitionend` is not triggered in test environment.
-				// Calling this function manually makes testing the open() function possible.
-				_handleOpenEnd();
-			}
+			scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+			isAnimating = true;
+
+			_prepareZoomedImage(active.original, { isChange: true }).then(_finishOpen);
 		});
 
 	const close = (): Promise<Zoom> =>
@@ -363,9 +423,6 @@ const mediumZoom = (selector?: ZoomSelector | ZoomOptionsParams, options: ZoomOp
 				if (!active.original || !active.zoomed) return resolve(zoom);
 				active.original.classList.remove('medium-zoom-image--hidden');
 				document.body.removeChild(active.zoomed);
-				if (active.zoomedHd) {
-					document.body.removeChild(active.zoomedHd);
-				}
 				document.body.removeChild(overlay);
 				active.zoomed.classList.remove('medium-zoom-image--opened');
 				if (active.template) {
@@ -383,7 +440,6 @@ const mediumZoom = (selector?: ZoomSelector | ZoomOptionsParams, options: ZoomOp
 
 				active.original = null;
 				active.zoomed = null;
-				active.zoomedHd = null;
 				active.template = null;
 
 				resolve(zoom);
@@ -391,11 +447,8 @@ const mediumZoom = (selector?: ZoomSelector | ZoomOptionsParams, options: ZoomOp
 
 			isAnimating = true;
 			document.body.classList.remove('medium-zoom--opened');
+			active.zoomed.classList.remove('medium-zoom-image--change');
 			active.zoomed.style.transform = '';
-
-			if (active.zoomedHd) {
-				active.zoomedHd.style.transform = '';
-			}
 
 			// Fade out the template so it's not too abrupt
 			if (active.template) {
@@ -442,8 +495,24 @@ const mediumZoom = (selector?: ZoomSelector | ZoomOptionsParams, options: ZoomOp
 	const active: ZoomActive = {
 		original: null,
 		zoomed: null,
-		zoomedHd: null,
 		template: null,
+	};
+
+	const zoom: Zoom = {
+		open,
+		change,
+		close,
+		toggle,
+		update,
+		clone,
+		attach,
+		detach,
+		on,
+		off,
+		getOptions: () => zoomOptions,
+		getImages: () => images,
+		getZoomedImage: () => active.original,
+		destroy: () => controller.abort(),
 	};
 
 	let optsToApply: ZoomOptionsParams;
@@ -465,8 +534,6 @@ const mediumZoom = (selector?: ZoomSelector | ZoomOptionsParams, options: ZoomOp
 		template: getTemplate(optsToApply.template),
 	};
 
-	const controller = new AbortController();
-
 	const overlay = createOverlay();
 	overlay.addEventListener('click', close);
 
@@ -476,22 +543,6 @@ const mediumZoom = (selector?: ZoomSelector | ZoomOptionsParams, options: ZoomOp
 	window.addEventListener('touchend', _handleTouchEnd, { passive: true, signal: controller.signal });
 	window.addEventListener('touchcancel', _handleTouchEnd, { passive: true, signal: controller.signal });
 	window.addEventListener('resize', _handleResize, { passive: true, signal: controller.signal });
-
-	const zoom: Zoom = {
-		open,
-		close,
-		toggle,
-		update,
-		clone,
-		attach,
-		detach,
-		on,
-		off,
-		getOptions: () => zoomOptions,
-		getImages: () => images,
-		getZoomedImage: () => active.original,
-		destroy: () => controller.abort(),
-	};
 
 	return zoom;
 };

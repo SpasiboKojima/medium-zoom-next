@@ -36,6 +36,10 @@
 	will-change: transform;
 }
 
+.medium-zoom-image--change {
+	transition: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.medium-zoom-overlay,
 	.medium-zoom-image {

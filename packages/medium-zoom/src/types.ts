@@ -37,7 +37,6 @@ export interface ZoomOptions extends Required<ZoomOptionsParams> {
 export interface ZoomActive {
 	original: HTMLImageElement | null;
 	zoomed: HTMLImageElement | null;
-	zoomedHd: HTMLImageElement | null;
 	template?: HTMLElement | null;
 }
 
@@ -68,6 +67,14 @@ export interface Zoom {
 	 * @returns A promise resolving with the zoom.
 	 */
 	open(options?: ZoomOpenOptions): Promise<Zoom>;
+
+	/**
+	 * Changes currently zoomed image to another one already attached without animation. Useful to switch open image with keyboard or on-screen buttons.
+	 *
+	 * @param options
+	 * @returns A promise resolving with the zoom.
+	 */
+	change(options?: ZoomOpenOptions): Promise<Zoom>;
 
 	/**
 	 * Closes the zoom.

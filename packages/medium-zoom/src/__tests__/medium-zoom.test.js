@@ -1436,13 +1436,14 @@ describe('off()', () => {
 describe('browser events', () => {
 	const root = emptyRootBeforeEach();
 
-	test('opens zoom on click on the image', () => {
+	test('opens zoom on click on the image', async () => {
 		const image = document.createElement('img');
 		root.appendChild(image);
 
 		mediumZoom(image);
 
 		image.click();
+		await Promise.resolve();
 		vi.runAllTimers();
 
 		expect([...image.classList]).toEqual(['medium-zoom-image', 'medium-zoom-image--hidden']);
@@ -1452,13 +1453,14 @@ describe('browser events', () => {
 		expect(root).toMatchSnapshot();
 	});
 
-	test('closes zoom on click on the overlay', () => {
+	test('closes zoom on click on the overlay', async () => {
 		const image = document.createElement('img');
 		root.appendChild(image);
 
 		mediumZoom(image);
 
 		image.click();
+		await Promise.resolve();
 		vi.runAllTimers();
 
 		const overlay = document.querySelector('.medium-zoom-overlay');
@@ -1498,13 +1500,14 @@ describe('browser events', () => {
 		expect(root).toMatchSnapshot();
 	});
 
-	test('does not close on other keys', () => {
+	test('does not close on other keys', async () => {
 		const image = document.createElement('img');
 		root.appendChild(image);
 
 		mediumZoom(image);
 
 		image.click();
+		await Promise.resolve();
 		vi.runAllTimers();
 
 		document.dispatchEvent(

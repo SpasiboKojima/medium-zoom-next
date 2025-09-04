@@ -28,7 +28,7 @@ exports[`browser events > does not close on other keys 1`] = `
   />
   <img
     class="medium-zoom-image medium-zoom-image--opened"
-    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate3d(NaNpx, NaNpx, 0);"
+    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate(NaNpx, NaNpx) translateZ(0);"
   />
 </body>
 `;
@@ -45,7 +45,7 @@ exports[`browser events > opens zoom on click on the image 1`] = `
   />
   <img
     class="medium-zoom-image medium-zoom-image--opened"
-    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate3d(NaNpx, NaNpx, 0);"
+    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate(NaNpx, NaNpx) translateZ(0);"
   />
 </body>
 `;
@@ -134,7 +134,7 @@ exports[`open() > mediumZoom({ container: Node }).open() renders correctly 1`] =
   />
   <img
     class="medium-zoom-image medium-zoom-image--opened"
-    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate3d(NaNpx, NaNpx, 0);"
+    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate(NaNpx, NaNpx) translateZ(0);"
   />
 </body>
 `;
@@ -151,7 +151,7 @@ exports[`open() > mediumZoom({ container: Object }).open() renders correctly 1`]
   />
   <img
     class="medium-zoom-image medium-zoom-image--opened"
-    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(-Infinity) translate3d(0px, 0px, 0);"
+    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(-Infinity) translate(0px, 0px) translateZ(0);"
   />
 </body>
 `;
@@ -169,7 +169,7 @@ exports[`open() > mediumZoom({ container: String }).open() renders correctly 1`]
   />
   <img
     class="medium-zoom-image medium-zoom-image--opened"
-    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate3d(NaNpx, NaNpx, 0);"
+    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate(NaNpx, NaNpx) translateZ(0);"
   />
 </body>
 `;
@@ -188,7 +188,7 @@ exports[`open() > mediumZoom({ template: Node }).open() renders correctly 1`] = 
   <div />
   <img
     class="medium-zoom-image medium-zoom-image--opened"
-    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate3d(NaNpx, NaNpx, 0);"
+    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate(NaNpx, NaNpx) translateZ(0);"
   />
 </body>
 `;
@@ -207,7 +207,7 @@ exports[`open() > mediumZoom({ template: String }).open() renders correctly 1`] 
   <div />
   <img
     class="medium-zoom-image medium-zoom-image--opened"
-    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate3d(NaNpx, NaNpx, 0);"
+    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate(NaNpx, NaNpx) translateZ(0);"
   />
 </body>
 `;
@@ -226,7 +226,7 @@ exports[`open() > open() a SVG renders correctly 1`] = `
   <img
     class="medium-zoom-image medium-zoom-image--opened"
     src="vector.svg"
-    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate3d(NaNpx, NaNpx, 0);"
+    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate(NaNpx, NaNpx) translateZ(0);"
   />
 </body>
 `;
@@ -246,7 +246,7 @@ exports[`open() > open() renders correctly 1`] = `
   />
   <img
     class="medium-zoom-image medium-zoom-image--opened"
-    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate3d(NaNpx, NaNpx, 0);"
+    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate(NaNpx, NaNpx) translateZ(0);"
   />
 </body>
 `;
@@ -263,7 +263,7 @@ exports[`open() > open() twice does not zoom twice 1`] = `
   />
   <img
     class="medium-zoom-image medium-zoom-image--opened"
-    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate3d(NaNpx, NaNpx, 0);"
+    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate(NaNpx, NaNpx) translateZ(0);"
   />
 </body>
 `;
@@ -286,7 +286,36 @@ exports[`open() > open() with \`<picture>\` renders correctly 1`] = `
   <img
     class="medium-zoom-image medium-zoom-image--opened"
     src="http://localhost/mock-src.png"
-    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate3d(NaNpx, NaNpx, 0);"
+    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate(NaNpx, NaNpx) translateZ(0);"
+  />
+</body>
+`;
+
+exports[`open() > open() with \`<picture>\` renders correctly 2`] = `
+<body
+  class="medium-zoom--opened"
+>
+  <picture>
+    <source
+      srcset="image-300x200.jpg 300w"
+    />
+    <img
+      class="medium-zoom-image medium-zoom-image--hidden"
+    />
+  </picture>
+  <div
+    class="medium-zoom-overlay"
+  />
+  <img
+    class="medium-zoom-image medium-zoom-image--opened"
+    src="http://localhost/mock-src.png"
+    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate(NaNpx, NaNpx) translateZ(0);"
+  />
+  <img
+    class="medium-zoom-image medium-zoom-image--opened"
+    data-zoom-src="image-hd.jpg"
+    src="image-hd.jpg"
+    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate(NaNpx, NaNpx) translateZ(0);"
   />
 </body>
 `;
@@ -306,14 +335,8 @@ exports[`open() > open() with \`data-zoom-src\` renders correctly 1`] = `
   <img
     class="medium-zoom-image medium-zoom-image--opened"
     data-zoom-src="image-hd.jpg"
-    src="image.jpg"
-    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate3d(NaNpx, NaNpx, 0);"
-  />
-  <img
-    class="medium-zoom-image medium-zoom-image--opened"
-    data-zoom-src="image-hd.jpg"
     src="image-hd.jpg"
-    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate3d(NaNpx, NaNpx, 0);"
+    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate(NaNpx, NaNpx) translateZ(0);"
   />
 </body>
 `;
@@ -334,7 +357,7 @@ exports[`open() > open() with \`srcset\` renders correctly 1`] = `
     class="medium-zoom-image medium-zoom-image--opened"
     src="image.jpg"
     srcset="image-300x200.jpg 300w, image-600x400.jpg 600w, image-800x500.jpg 800w, image-1000x650.jpg 1000w, image-1200x800.jpg 1200w"
-    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px;"
+    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate(NaNpx, NaNpx) translateZ(0);"
   />
 </body>
 `;
@@ -351,7 +374,7 @@ exports[`toggle() > toggle() once renders correctly 1`] = `
   />
   <img
     class="medium-zoom-image medium-zoom-image--opened"
-    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate3d(NaNpx, NaNpx, 0);"
+    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate(NaNpx, NaNpx) translateZ(0);"
   />
 </body>
 `;
@@ -378,7 +401,7 @@ exports[`toggle() > toggle() twice renders correctly > opened 1`] = `
   />
   <img
     class="medium-zoom-image medium-zoom-image--opened"
-    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate3d(NaNpx, NaNpx, 0);"
+    style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(NaN) translate(NaNpx, NaNpx) translateZ(0);"
   />
 </body>
 `;
