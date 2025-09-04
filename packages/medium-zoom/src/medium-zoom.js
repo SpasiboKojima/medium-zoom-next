@@ -130,69 +130,71 @@ const mediumZoom = (selector, options = {}) => {
 		return zoom;
 	};
 
-	const open = ({ target } = {}) => {
-		const _animate = () => {
-			let container = {
-				width: document.documentElement.clientWidth,
-				height: document.documentElement.clientHeight,
-				left: 0,
-				top: 0,
-				right: 0,
-				bottom: 0,
-			};
-			let viewportWidth;
-			let viewportHeight;
+	const _animate = () => {
+		let container = {
+			width: document.documentElement.clientWidth,
+			height: document.documentElement.clientHeight,
+			left: 0,
+			top: 0,
+			right: 0,
+			bottom: 0,
+		};
+		let viewportWidth;
+		let viewportHeight;
 
-			if (zoomOptions.container) {
-				if (zoomOptions.container instanceof Object) {
-					// The container is given as an object with properties like width, height, left, top
-					container = {
-						...container,
-						...zoomOptions.container,
-					};
+		if (zoomOptions.container) {
+			if (zoomOptions.container instanceof Object && 'top' in zoomOptions.container) {
+				// The container is given as an object with properties like width, height, left, top
+				container = {
+					...container,
+					...zoomOptions.container,
+				};
 
-					// We need to adjust custom options like container.right or container.bottom
-					viewportWidth = container.width - container.left - container.right - zoomOptions.margin * 2;
-					viewportHeight = container.height - container.top - container.bottom - zoomOptions.margin * 2;
-				} else {
-					// The container is given as an element
-					const zoomContainer = isNode(zoomOptions.container) ? zoomOptions.container : document.querySelector(zoomOptions.container);
+				// We need to adjust custom options like container.right or container.bottom
+				viewportWidth = container.width - container.left - container.right - zoomOptions.margin * 2;
+				viewportHeight = container.height - container.top - container.bottom - zoomOptions.margin * 2;
+			} else if (zoomOptions.container instanceof HTMLElement || typeof zoomOptions.container === 'string') {
+				// The container is given as an element
+				const zoomContainer = isNode(zoomOptions.container) ? zoomOptions.container : document.querySelector(zoomOptions.container);
 
+				if (zoomContainer) {
 					const { width, height, left, top } = zoomContainer.getBoundingClientRect();
 
-					container = {
-						...container,
-						width,
-						height,
-						left,
-						top,
-					};
+					container.width = width;
+					container.height = height;
+					container.left = left;
+					container.top = top;
 				}
 			}
+		}
 
-			viewportWidth = viewportWidth || container.width - zoomOptions.margin * 2;
-			viewportHeight = viewportHeight || container.height - zoomOptions.margin * 2;
+		viewportWidth ??= container.width - zoomOptions.margin * 2;
+		viewportHeight ??= container.height - zoomOptions.margin * 2;
 
-			const zoomTarget = active.zoomedHd || active.original;
-			const naturalWidth = isSvg(zoomTarget) ? viewportWidth : zoomTarget.naturalWidth || viewportWidth;
-			const naturalHeight = isSvg(zoomTarget) ? viewportHeight : zoomTarget.naturalHeight || viewportHeight;
-			const { top, left, width, height } = zoomTarget.getBoundingClientRect();
+		const zoomTarget = active.zoomedHd || active.original;
+		if (!zoomTarget) return;
+		const isSvgImage = isSvg(zoomTarget);
 
-			const scaleX = Math.min(Math.max(width, naturalWidth), viewportWidth) / width;
-			const scaleY = Math.min(Math.max(height, naturalHeight), viewportHeight) / height;
-			const scale = Math.min(scaleX, scaleY);
-			const translateX = (-left + (viewportWidth - width) / 2 + zoomOptions.margin + container.left) / scale;
-			const translateY = (-top + (viewportHeight - height) / 2 + zoomOptions.margin + container.top) / scale;
-			const transform = `scale(${scale}) translate3d(${translateX}px, ${translateY}px, 0)`;
+		const naturalWidth = isSvgImage ? viewportWidth : zoomTarget.naturalWidth || viewportWidth;
+		const naturalHeight = isSvgImage ? viewportHeight : zoomTarget.naturalHeight || viewportHeight;
+		const { top, left, width, height } = zoomTarget.getBoundingClientRect();
 
-			active.zoomed.style.transform = transform;
+		const scaleX = Math.min(Math.max(width, naturalWidth), viewportWidth) / width;
+		const scaleY = Math.min(Math.max(height, naturalHeight), viewportHeight) / height;
+		const scale = Math.min(scaleX, scaleY);
+		const translateX = (-left + (viewportWidth - width) / 2 + zoomOptions.margin + container.left) / scale;
+		const translateY = (-top + (viewportHeight - height) / 2 + zoomOptions.margin + container.top) / scale;
+		const transform = `scale(${scale}) translate3d(${translateX}px, ${translateY}px, 0)`;
 
-			if (active.zoomedHd) {
-				active.zoomedHd.style.transform = transform;
-			}
-		};
+		active.zoomed.style.transform = transform;
 
-		return new Promise((resolve) => {
+		if (active.zoomedHd) {
+			active.zoomedHd.style.transform = transform;
+		}
+	};
+
+	const open = ({ target } = {}) =>
+		new Promise((resolve) => {
 			if (target && images.indexOf(target) === -1) {
 				resolve(zoom);
 				return;
@@ -326,7 +328,6 @@ const mediumZoom = (selector, options = {}) => {
 				_handleOpenEnd();
 			}
 		});
-	};
 
 	const close = () =>
 		new Promise((resolve) => {
