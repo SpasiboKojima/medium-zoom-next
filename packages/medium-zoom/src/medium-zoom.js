@@ -206,7 +206,12 @@ const mediumZoom = (selector, options = {}) => {
 
 	const open = ({ target } = {}) =>
 		new Promise((resolve) => {
-			if (target && images.indexOf(target) === -1) {
+			if ((target && images.indexOf(target) === -1) || images.length === 0) {
+				resolve(zoom);
+				return;
+			}
+
+			if (active.zoomed) {
 				resolve(zoom);
 				return;
 			}
@@ -223,20 +228,12 @@ const mediumZoom = (selector, options = {}) => {
 				resolve(zoom);
 			};
 
-			if (active.zoomed) {
-				resolve(zoom);
-				return;
-			}
-
 			if (target) {
 				// The zoom was triggered manually via a click
 				active.original = target;
-			} else if (images.length > 0) {
+			} else {
 				// The zoom was triggered programmatically, select the first image in the list
 				[active.original] = images;
-			} else {
-				resolve(zoom);
-				return;
 			}
 
 			active.original.dispatchEvent(
@@ -413,12 +410,6 @@ const mediumZoom = (selector, options = {}) => {
 		return open({ target });
 	};
 
-	const getOptions = () => zoomOptions;
-
-	const getImages = () => images;
-
-	const getZoomedImage = () => active.original;
-
 	let images = [];
 	let eventListeners = [];
 	let isAnimating = false;
@@ -445,7 +436,7 @@ const mediumZoom = (selector, options = {}) => {
 		optsToApply = selector;
 	} else {
 		optsToApply = options;
-		if (selector) {
+		if (selector || typeof selector === 'string') {
 			// to process empty string as a selector
 			attach(selector);
 		}
@@ -458,9 +449,9 @@ const mediumZoom = (selector, options = {}) => {
 		template: getTemplate(optsToApply.template),
 	};
 
-	const overlay = createOverlay();
-
 	const controller = new AbortController();
+
+	const overlay = createOverlay();
 	overlay.addEventListener('click', close);
 
 	document.addEventListener('keydown', _handleKeyDown, { signal: controller.signal });
@@ -480,9 +471,9 @@ const mediumZoom = (selector, options = {}) => {
 		detach,
 		on,
 		off,
-		getOptions,
-		getImages,
-		getZoomedImage,
+		getOptions: () => zoomOptions,
+		getImages: () => images,
+		getZoomedImage: () => active.original,
 		destroy: () => controller.abort(),
 	};
 
