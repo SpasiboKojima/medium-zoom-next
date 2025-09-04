@@ -418,7 +418,13 @@ const mediumZoom = (selector, options = {}) => {
 	let eventListeners = [];
 	let isAnimating = false;
 	let scrollTop = 0;
-	let zoomOptions = options;
+	let zoomOptions = {
+		margin: 0,
+		scrollOffset: 40,
+		container: null,
+		template: null,
+	};
+
 	const active = {
 		original: null,
 		zoomed: null,
@@ -426,23 +432,23 @@ const mediumZoom = (selector, options = {}) => {
 		template: null,
 	};
 
-	// If the selector is omitted, it's replaced by the options
+	let optsToApply;
+
+	// Determine initial zoomOptions based on selector or options
 	if (Object.prototype.toString.call(selector) === '[object Object]') {
-		zoomOptions = selector;
-	} else if (
-		selector ||
-		typeof selector === 'string' // to process empty string as a selector
-	) {
-		attach(selector);
+		optsToApply = selector;
+	} else {
+		optsToApply = options;
+		if (selector) {
+			// to process empty string as a selector
+			attach(selector);
+		}
 	}
 
 	// Apply the default option values
 	zoomOptions = {
-		margin: 0,
-		scrollOffset: 40,
-		container: null,
-		template: null,
 		...zoomOptions,
+		...optsToApply,
 	};
 
 	const overlay = createOverlay();
