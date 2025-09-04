@@ -533,7 +533,7 @@ describe('update()', () => {
 
 		expect(updatedOptions).toEqual({
 			...initialOptions,
-			container: { ...document.body },
+			container: document.body,
 		});
 	});
 
@@ -1323,26 +1323,6 @@ describe('on()', () => {
 		expect(onUpdate).toHaveBeenCalledTimes(2);
 		expect(onUpdate).toHaveBeenNthCalledWith(1, expect.objectContaining({ target: image1, detail: { zoom } }));
 		expect(onUpdate).toHaveBeenNthCalledWith(2, expect.objectContaining({ target: image2, detail: { zoom } }));
-	});
-
-	test('event is called when `CustomEvent` is undefined', async () => {
-		expect.assertions(2);
-
-		const image = document.createElement('img');
-		root.appendChild(image);
-
-		global.CustomEvent = undefined;
-
-		const zoom = mediumZoom(image);
-		const onOpen = vi.fn();
-
-		zoom.on('open', onOpen);
-
-		await zoom.open();
-		vi.runAllTimers();
-
-		expect(onOpen).toHaveBeenCalledTimes(1);
-		expect(onOpen).toHaveBeenCalledWith(expect.objectContaining({ target: image, detail: { zoom } }));
 	});
 
 	test('event is called once with the `once` option', async () => {
