@@ -71,3 +71,14 @@ export const createCustomEvent = (type, params) => {
 
 	return new CustomEvent(type, eventParams);
 };
+
+export const getTemplate = (template) => {
+	if (!template) return null;
+	const tmpl = isNode(template) ? template : document.querySelector(template);
+
+	if (!tmpl || tmpl.tagName !== 'TEMPLATE') {
+		throw new Error('The specified template option is not a <template> element.');
+	}
+
+	return tmpl;
+};

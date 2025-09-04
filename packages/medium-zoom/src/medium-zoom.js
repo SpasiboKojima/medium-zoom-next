@@ -1,4 +1,4 @@
-import { isNode, isSvg, getImagesFromSelector, createOverlay, cloneTarget, createCustomEvent } from './utils';
+import { isNode, isSvg, getImagesFromSelector, createOverlay, cloneTarget, createCustomEvent, getTemplate } from './utils';
 
 const mediumZoom = (selector, options = {}) => {
 	const _handleClick = (event) => {
@@ -47,13 +47,7 @@ const mediumZoom = (selector, options = {}) => {
 			};
 		}
 
-		if (options.template) {
-			const template = isNode(options.template) ? options.template : document.querySelector(options.template);
-
-			newOptions.template = template;
-		}
-
-		zoomOptions = { ...zoomOptions, ...newOptions };
+		zoomOptions = { ...zoomOptions, ...newOptions, template: getTemplate(options.template) };
 
 		images.forEach((image) => {
 			image.dispatchEvent(
@@ -245,9 +239,8 @@ const mediumZoom = (selector, options = {}) => {
 			document.body.appendChild(overlay);
 
 			if (zoomOptions.template) {
-				const template = isNode(zoomOptions.template) ? zoomOptions.template : document.querySelector(zoomOptions.template);
 				active.template = document.createElement('div');
-				active.template.appendChild(template.content.cloneNode(true));
+				active.template.appendChild(zoomOptions.template.content.cloneNode(true));
 
 				document.body.appendChild(active.template);
 			}
@@ -449,6 +442,7 @@ const mediumZoom = (selector, options = {}) => {
 	zoomOptions = {
 		...zoomOptions,
 		...optsToApply,
+		template: getTemplate(optsToApply.template),
 	};
 
 	const overlay = createOverlay();
