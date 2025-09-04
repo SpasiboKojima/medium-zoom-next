@@ -457,10 +457,11 @@ const mediumZoom = (selector, options = {}) => {
 
 	const overlay = createOverlay();
 
-	document.addEventListener('click', _handleClick);
-	document.addEventListener('keyup', _handleKeyUp);
-	document.addEventListener('scroll', _handleScroll);
-	window.addEventListener('resize', close);
+	const controller = new AbortController();
+	document.addEventListener('click', _handleClick, { signal: controller.signal });
+	document.addEventListener('keyup', _handleKeyUp, { signal: controller.signal });
+	document.addEventListener('scroll', _handleScroll, { signal: controller.signal });
+	window.addEventListener('resize', close, { signal: controller.signal });
 
 	const zoom = {
 		open,
@@ -475,6 +476,7 @@ const mediumZoom = (selector, options = {}) => {
 		getOptions,
 		getImages,
 		getZoomedImage,
+		destroy: () => controller.abort(),
 	};
 
 	return zoom;

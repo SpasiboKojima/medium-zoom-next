@@ -146,6 +146,11 @@ export interface Zoom {
 	 * @returns The current zoomed image.
 	 */
 	getZoomedImage(): HTMLElement;
+
+	/**
+	 * Removes all previously attached event listeners.
+	 */
+	destroy(): void;
 }
 
 /**
