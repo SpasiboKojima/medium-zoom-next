@@ -5,21 +5,21 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/medium-zoom">
-    <img src="https://img.shields.io/npm/v/medium-zoom.svg?style=flat-square" alt="version">
+  <a href="https://www.npmjs.com/package/@spasibokojima/medium-zoom">
+    <img alt="NPM Version" src="https://img.shields.io/npm/v/%40spasibokojima%2Fmedium-zoom?color=%231968cb">
   </a>
-  <a href="https://github.com/francoischalifour/medium-zoom/blob/master/LICENSE">
-    <img src="https://img.shields.io/npm/l/medium-zoom.svg?style=flat-square" alt="MIT license">
+  <a href="https://github.com/SpasiboKojima/medium-zoom/blob/master/LICENSE">
+    <img alt="GitHub License" src="https://img.shields.io/github/license/SpasiboKojima/medium-zoom?color=%231968cb">
   </a>
-  <a href="http://npmcharts.com/compare/medium-zoom">
-    <img src="https://img.shields.io/npm/dm/medium-zoom.svg?style=flat-square" alt="downloads">
+  <a href="https://www.npmcharts.com/compare/@spasibokojima/medium-zoom">
+    <img alt="NPM Downloads" src="https://img.shields.io/npm/d18m/%40spasibokojima%2Fmedium-zoom?color=%231968cb">
   </a>
   <br>
-  <a href="https://unpkg.com/medium-zoom/dist/">
-    <img src="http://img.badgesize.io/https://unpkg.com/medium-zoom/dist/medium-zoom.min.js?compression=gzip&label=gzip%20size&style=flat-square" alt="gzip size">
+  <a href="https://unpkg.com/@spasibokojima/medium-zoom/dist/">
+    <img alt="npm package minimized gzipped size" src="https://img.shields.io/bundlejs/size/%40spasibokojima%2Fmedium-zoom?color=%231968cb">
   </a>
-  <a href="https://github.com/francoischalifour/medium-zoom/blob/master/package.json">
-    <img src="https://img.shields.io/badge/dependencies-none-lightgrey.svg?style=flat-square" alt="no dependencies">
+  <a href="https://github.com/SpasiboKojima/medium-zoom/blob/master/packages/medium-zoom/package.json">
+    <img src="https://img.shields.io/badge/dependencies-none-lightgrey.svg?color=%231968cb" alt="no dependencies">
   </a>
 </p>
 
@@ -93,14 +93,14 @@ npm install medium-zoom
 
 ###### Download
 
-- [Normal](https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.js)
-- [Minified](https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js)
+- [Normal](https://cdn.jsdelivr.net/npm/@spasibokojima/medium-zoom/dist/medium-zoom.js)
+- [Minified](https://cdn.jsdelivr.net/npm/@spasibokojima/medium-zoom/dist/medium-zoom.min.js)
 
 ###### CDN
 
-- [jsDelivr](https://www.jsdelivr.com/package/npm/medium-zoom)
-- [unpkg](https://unpkg.com/medium-zoom/)
-- [esm.sh](https://esm.sh/medium-zoom)
+- [jsDelivr](https://www.jsdelivr.com/package/npm/@spasibokojima/medium-zoom)
+- [unpkg](https://unpkg.com/@spasibokojima/medium-zoom/)
+- [esm.sh](https://esm.sh/@spasibokojima/medium-zoom/)
 
 ## Usage
 
@@ -202,6 +202,19 @@ zoom.open()
 ```
 
 _Emits an event [`open`](#events) on animation start and [`opened`](#events) when completed._
+
+#### `change({ target?: HTMLElement }): Promise<Zoom>`
+
+Changes the currently zoomed image and returns a promise resolving with the zoom. Useful for implementing carousels and changing images from the keyboard.
+
+```js
+const zoom = mediumZoom('[data-zoomable]')
+
+zoom.open({ target: document.querySelector('#image-1') })
+zoom.change({ target: document.querySelector('#image-2') })
+```
+
+_Emits an event [`changed`](#events) on change complete._
 
 #### `close(): Promise<Zoom>`
 
@@ -389,10 +402,10 @@ The zoom object is accessible in `event.detail.zoom`.
 
 Medium Zoom is a JavaScript library that can be used with any framework. Here are some integrations that you can use to get started quickly:
 
-- [React](./examples/react)
-- [React Markdown](./examples/react-markdown)
-- [Vue](./examples/vue)
-- [Svelte](./examples/svelte)
+- [React](./apps/examples/react)
+- [React Markdown](./apps/examples/react-markdown)
+- [Vue](./apps/examples/vue)
+- [Svelte](./apps/examples/svelte)
 
 ## Examples
 
@@ -436,17 +449,6 @@ zoom.on('closed', () => zoom.detach(), { once: true })
 </details>
 
 <details>
- <summary>Attach jQuery elements</summary>
-
-jQuery elements are compatible with `medium-zoom` once converted to an array.
-
-```js
-mediumZoom($('[data-zoomable]').toArray())
-```
-
-</details>
-
-<details>
  <summary>Create a zoomable React component</summary>
 
 ```js
@@ -481,7 +483,7 @@ export function ImageZoom({ options, ...props }) {
 </details>
 <br>
 
-You can see [more examples](examples/) including [React](examples/react) and [Vue](examples/vue), or check out the [storybook](https://medium-zoom.francoischalifour.com/storybook).
+You can see [more examples here](apps/examples/), or check out the [storybook](https://medium-zoom.francoischalifour.com/storybook).
 
 ## Debugging
 
@@ -519,11 +521,9 @@ If that's the case, you can provide a `z-index` value in your CSS:
 
 - Run `bun` to install Node dev dependencies
 - Run `bun start` to build the library in watch mode
-- Run `bun run storybook` to see your changes at http://localhost:9001
+- Run `bun run storybook` to see your changes at http://localhost:6006
 
 Please read the [contributing guidelines](CONTRIBUTING.md) for more detailed explanations.
-
-_You can also use [npm](https://www.npmjs.com)._
 
 ## License
 
