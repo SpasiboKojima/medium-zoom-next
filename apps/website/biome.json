@@ -1,6 +1,0 @@
-{
-	"extends": "//",
-	"files": {
-		"includes": ["**", "!dist", "!node_modules", "!.cache", "!*.log"]
-	}
-}
