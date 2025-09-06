@@ -1,7 +1,7 @@
 /** @jsxImportSource react */
 import mediumZoom, { type Zoom, type ZoomOptionsParams } from 'medium-zoom';
 import 'medium-zoom/dist/style.css';
-import { useRef, type ComponentProps, type RefCallback } from 'react';
+import { useEffect, useRef, type ComponentProps, type RefCallback } from 'react';
 
 type ImageZoomProps = ComponentProps<'img'> & {
 	options?: ZoomOptionsParams;
@@ -27,6 +27,12 @@ export function ReactImageZoom({ options, ...props }: ImageZoomProps) {
 			zoom.detach();
 		}
 	};
+
+	useEffect(() => {
+		return () => {
+			zoomRef.current?.destroy();
+		};
+	}, []);
 
 	return <img {...props} alt={props.alt} ref={attachZoom} />;
 }

@@ -1,4 +1,4 @@
-import type { ZoomOptionsParams, ZoomSelector } from './types';
+import type { ZoomEvent, ZoomOptionsParams, ZoomSelector } from './types';
 
 export const isSupported = (node: Element): node is HTMLImageElement => node.tagName === 'IMG';
 
@@ -65,7 +65,7 @@ export const cloneTarget = <T extends HTMLElement>(template: T) => {
 	return clone;
 };
 
-export const createCustomEvent = (type: string, params?: CustomEventInit) => {
+export const createCustomEvent = (type: `medium-zoom:${ZoomEvent}`, params?: CustomEventInit) => {
 	const eventParams = {
 		bubbles: false,
 		cancelable: false,

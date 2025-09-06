@@ -1,5 +1,5 @@
 import mediumZoom, { type Zoom, type ZoomOptionsParams } from 'medium-zoom';
-import type { JSX } from 'solid-js';
+import { onCleanup, type JSX } from 'solid-js';
 import 'medium-zoom/dist/style.css';
 
 type ImageZoomProps = JSX.IntrinsicElements['img'] & {
@@ -27,6 +27,10 @@ export function SolidImageZoom({ options, ...props }: ImageZoomProps) {
 			zoom.detach();
 		}
 	};
+
+	onCleanup(() => {
+		zoomRef?.destroy();
+	});
 
 	return <img alt={props.alt} {...props} ref={attachZoom} />;
 }

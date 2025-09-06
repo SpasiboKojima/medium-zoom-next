@@ -23,6 +23,7 @@ export function ReactMarkdownPage() {
 
 		return () => {
 			zoom.detach();
+			zoom.destroy();
 		};
 	}, []);
 
