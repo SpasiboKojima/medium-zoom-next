@@ -22,7 +22,7 @@
         "@types/react": "^19.1.12",
         "@types/react-dom": "^19.1.9",
         "astro": "^5.13.5",
-        "medium-zoom": "workspace:*",
+        "medium-zoom-next": "workspace:*",
         "react": "^19.1.1",
         "react-dom": "^19.1.1",
         "react-markdown": "^10.1.0",
@@ -36,8 +36,8 @@
         "daisyui": "^5.1.7",
       },
     },
-    "packages/medium-zoom": {
-      "name": "medium-zoom",
+    "packages/medium-zoom-next": {
+      "name": "medium-zoom-next",
       "version": "1.1.1",
       "devDependencies": {
         "@babel/core": "^7.28.3",
@@ -1612,7 +1612,7 @@
 
     "mdn-data": ["mdn-data@2.12.2", "", {}, "sha512-IEn+pegP1aManZuckezWCO+XZQDplx1366JoVhTpMpBB1sPey/SbveZQUosKiKiGYjg1wH4pMlNgXbCiYgihQA=="],
 
-    "medium-zoom": ["medium-zoom@workspace:packages/medium-zoom"],
+    "medium-zoom-next": ["medium-zoom-next@workspace:packages/medium-zoom-next"],
 
     "meow": ["meow@13.2.0", "", {}, "sha512-pxQJQzB6djGPXh08dacEloMFopsOqGVRKFPYvPOt9XDZ1HasbgDZA74CJGreSU4G3Ak7EFJGoiH2auq+yXISgA=="],
 

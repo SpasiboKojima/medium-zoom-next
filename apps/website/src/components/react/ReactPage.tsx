@@ -1,6 +1,6 @@
 /** @jsxImportSource react */
-import mediumZoom, { type Zoom, type ZoomOptionsParams } from 'medium-zoom';
-import 'medium-zoom/dist/style.css';
+import mediumZoom, { type Zoom, type ZoomOptionsParams } from 'medium-zoom-next';
+import 'medium-zoom-next/dist/style.css';
 import { useEffect, useRef, type ComponentProps, type RefCallback } from 'react';
 
 type ImageZoomProps = ComponentProps<'img'> & {

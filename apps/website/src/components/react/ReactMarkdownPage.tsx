@@ -1,8 +1,8 @@
 /** @jsxImportSource react */
-import mediumZoom from 'medium-zoom';
+import mediumZoom from 'medium-zoom-next';
 import { useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
-import 'medium-zoom/dist/style.css';
+import 'medium-zoom-next/dist/style.css';
 
 const markdown = `
 ![Zoom 1](images/image-1.jpg)

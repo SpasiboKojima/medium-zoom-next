@@ -1,5 +1,5 @@
 <script>
-import 'medium-zoom/dist/style.css';
+import 'medium-zoom-next/dist/style.css';
 import SvelteImageZoom from './SvelteImageZoom.svelte';
 </script>
 

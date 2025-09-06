@@ -1,5 +1,5 @@
 {
-	"name": "medium-zoom-monorepo",
+	"name": "medium-zoom-next-monorepo",
 	"private": true,
 	"packageManager": "bun@1.2.21",
 	"workspaces": [
@@ -21,24 +21,6 @@
 		"release": "release-it",
 		"release:next": "release-it --preRelease=next"
 	},
-	"keywords": [
-		"medium",
-		"image",
-		"zoom",
-		"picture",
-		"lightbox",
-		"click",
-		"scroll",
-		"pure",
-		"plain",
-		"vanilla",
-		"javascript",
-		"ux",
-		"performance",
-		"event",
-		"medium-zoom",
-		"zoomable"
-	],
 	"devDependencies": {
 		"@biomejs/biome": "2.2.2",
 		"conventional-changelog": "^7.1.1",

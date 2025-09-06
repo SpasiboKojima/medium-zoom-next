@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ImageZoom from './VueImageZoom.vue';
-import 'medium-zoom/dist/style.css';
+import 'medium-zoom-next/dist/style.css';
 </script>
 
 <template>

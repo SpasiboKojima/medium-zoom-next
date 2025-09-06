@@ -1,5 +1,5 @@
 ---
-import 'medium-zoom/dist/style.css';
+import 'medium-zoom-next/dist/style.css';
 import background from '../assets/background.svg';
 import Layout from '../layouts/Layout.astro';
 ---
@@ -11,10 +11,10 @@ import Layout from '../layouts/Layout.astro';
     <div class='hero'>
       <div class='hero-content text-center'>
         <div class='max-w-md'>
-          <h1 class='text-5xl font-bold'>Medium Zoom</h1>
+          <h1 class='text-5xl font-bold'>Medium Zoom Next</h1>
           <p class='py-6'>A JavaScript library for zooming images like Medium</p>
           <div class='flex gap-4 justify-center'>
-            <a href='https://github.com/SpasiboKojima/medium-zoom' class='btn btn-primary'>View on GitHub</a>
+            <a href='https://github.com/SpasiboKojima/medium-zoom-next' class='btn btn-primary'>View on GitHub</a>
             <a href='https://francoischalifour.com/lab/medium-image-zoom' class='btn btn-primary'>Read the article</a>
           </div>
         </div>
@@ -108,21 +108,21 @@ import Layout from '../layouts/Layout.astro';
       <aside>
         <h2>Getting started</h2>
 
-        <pre class='bg-gray-900 text-white'><code>npm install medium-zoom</code></pre>
+        <pre class='bg-gray-900 text-white'><code>npm install medium-zoom-next</code></pre>
 
         <p class='text-center'>
-          <a href='https://github.com/spasibokojima/medium-zoom#usage' class='btn btn-primary btn-lg'>Learn how to use the library →</a>
+          <a href='https://github.com/spasibokojima/medium-zoom-next#usage' class='btn btn-primary btn-lg'>Learn how to use the library →</a>
         </p>
       </aside>
     </article>
   </main>
 
-  <foote class='flex flex-col items-center gap-8 py-16 px-6'>
+  <footer class='flex flex-col items-center gap-8 py-16 px-6'>
     <div class='flex gap-4 justify-center'>
-      <a href='https://github.com/francoischalifour/medium-zoom' class='btn btn-outline'>View on GitHub</a>
+      <a href='https://github.com/spasibokojima/medium-zoom-next' class='btn btn-outline'>View on GitHub</a>
       <a href='http://francoischalifour.com/lab/medium-image-zoom' class='btn btn-outline'>Read the article</a>
     </div>
-  </foote>
+  </footer>
 </Layout>
 
 <style>
@@ -280,7 +280,7 @@ import Layout from '../layouts/Layout.astro';
   }
 </style>
 <script>
-  import mediumZoom from 'medium-zoom';
+  import mediumZoom from 'medium-zoom-next';
 
   const zoomDefault = mediumZoom('#zoom-default');
   const zoomMargin = mediumZoom('#zoom-margin', { margin: 48 });

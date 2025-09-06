@@ -1,6 +1,6 @@
 <script>
 /** biome-ignore-all lint/style/useConst: this is how it works */
-import mediumZoom from 'medium-zoom';
+import mediumZoom from 'medium-zoom-next';
 
 export let src = undefined;
 export let alt = undefined;

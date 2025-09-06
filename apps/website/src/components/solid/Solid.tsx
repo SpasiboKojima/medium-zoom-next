@@ -1,6 +1,6 @@
-import mediumZoom, { type Zoom, type ZoomOptionsParams } from 'medium-zoom';
+import mediumZoom, { type Zoom, type ZoomOptionsParams } from 'medium-zoom-next';
 import { onCleanup, type JSX } from 'solid-js';
-import 'medium-zoom/dist/style.css';
+import 'medium-zoom-next/dist/style.css';
 
 type ImageZoomProps = JSX.IntrinsicElements['img'] & {
 	options?: ZoomOptionsParams;

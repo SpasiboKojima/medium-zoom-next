@@ -1,6 +1,6 @@
-# Medium Zoom website
+# Medium Zoom Next website
 
-> Source code for the [Medium Zoom website](https://medium-zoom.francoischalifour.com).
+> Source code for the [Medium Zoom Next website](https://medium-zoom.francoischalifour.com).
 
 ## Storybook
 
