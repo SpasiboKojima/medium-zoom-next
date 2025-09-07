@@ -5,20 +5,20 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@spasibokojima/medium-zoom">
-    <img alt="NPM Version" src="https://img.shields.io/npm/v/%40spasibokojima%2Fmedium-zoom?color=%231968cb">
+  <a href="https://www.npmjs.com/package/medium-zoom-next">
+    <img alt="NPM Version" src="https://img.shields.io/npm/v/medium-zoom-next">
   </a>
-  <a href="https://github.com/SpasiboKojima/medium-zoom/blob/master/LICENSE">
-    <img alt="GitHub License" src="https://img.shields.io/github/license/SpasiboKojima/medium-zoom?color=%231968cb">
+  <a href="https://github.com/SpasiboKojima/medium-zoom-next/blob/master/LICENSE">
+    <img alt="GitHub License" src="https://img.shields.io/github/license/SpasiboKojima/medium-zoom-next?color=%231968cb">
   </a>
-  <a href="https://www.npmcharts.com/compare/@spasibokojima/medium-zoom">
-    <img alt="NPM Downloads" src="https://img.shields.io/npm/d18m/%40spasibokojima%2Fmedium-zoom?color=%231968cb">
+  <a href="https://www.npmcharts.com/compare/medium-zoom-next">
+    <img alt="NPM Downloads" src="https://img.shields.io/npm/d18m/medium-zoom-next?color=%231968cb">
   </a>
   <br>
-  <a href="https://unpkg.com/@spasibokojima/medium-zoom/dist/">
-    <img alt="npm package minimized gzipped size" src="https://img.shields.io/bundlejs/size/%40spasibokojima%2Fmedium-zoom?color=%231968cb">
+  <a href="https://unpkg.com/medium-zoom-next/dist/">
+    <img alt="npm package minimized gzipped size" src="https://img.shields.io/bundlejs/size/medium-zoom-next?color=%231968cb">
   </a>
-  <a href="https://github.com/SpasiboKojima/medium-zoom/blob/master/packages/medium-zoom/package.json">
+  <a href="https://github.com/SpasiboKojima/medium-zoom-next/blob/master/packages/medium-zoom/package.json">
     <img src="https://img.shields.io/badge/dependencies-none-lightgrey.svg?color=%231968cb" alt="no dependencies">
   </a>
 </p>
@@ -88,19 +88,19 @@ npx doctoc README.md --maxlevel 3
 The module is available on the [npm](https://www.npmjs.com) registry.
 
 ```sh
-npm install medium-zoom
+npm install medium-zoom-next
 ```
 
 ###### Download
 
-- [Normal](https://cdn.jsdelivr.net/npm/@spasibokojima/medium-zoom/dist/medium-zoom.js)
-- [Minified](https://cdn.jsdelivr.net/npm/@spasibokojima/medium-zoom/dist/medium-zoom.min.js)
+- [Normal](https://cdn.jsdelivr.net/npm/medium-zoom-next/dist/medium-zoom.cjs)
+- [Minified](https://cdn.jsdelivr.net/npm/medium-zoom-next/dist/medium-zoom.min.cjs)
 
 ###### CDN
 
-- [jsDelivr](https://www.jsdelivr.com/package/npm/@spasibokojima/medium-zoom)
-- [unpkg](https://unpkg.com/@spasibokojima/medium-zoom/)
-- [esm.sh](https://esm.sh/@spasibokojima/medium-zoom/)
+- [jsDelivr](https://www.jsdelivr.com/package/npm/medium-zoom-next)
+- [unpkg](https://unpkg.com/medium-zoom-next/)
+- [esm.sh](https://esm.sh/medium-zoom-next/)
 
 ## Usage
 
@@ -109,15 +109,15 @@ npm install medium-zoom
 Import the library as a module:
 
 ```js
-import mediumZoom from 'medium-zoom'
-import 'medium-zoom/dist/style.css'
+import mediumZoom from 'medium-zoom-next'
+import 'medium-zoom-next/dist/style.css'
 ```
 
 Or import the library with a script tag:
 
 ```html
-<script src="node_modules/medium-zoom/dist/medium-zoom.min.js"></script>
-<link href="node_modules/medium-zoom/dist/style.css" rel="stylesheet" />
+<script src="node_modules/medium-zoom-next/dist/medium-zoom.min.cjs"></script>
+<link href="node_modules/medium-zoom-next/dist/style.css" rel="stylesheet" />
 ```
 
 
@@ -453,7 +453,8 @@ zoom.on('closed', () => zoom.detach(), { once: true })
 
 ```js
 import React, { useRef } from 'react'
-import mediumZoom from 'medium-zoom'
+import mediumZoom from 'medium-zoom-next'
+import 'medium-zoom-next/dist/style.css';
 
 export function ImageZoom({ options, ...props }) {
   const zoomRef = useRef(null)

@@ -10,6 +10,7 @@
 		"url": "https://francoischalifour.com"
 	},
 	"repository": "SpasiboKojima/medium-zoom-next",
+	"homepage": "https://medium-zoom-next.vercel.app",
 	"browserslist": "> 0.25%, not dead",
 	"main": "dist/medium-zoom.min.cjs",
 	"module": "dist/medium-zoom.esm.js",
