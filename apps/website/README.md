@@ -1,10 +1,10 @@
 # Medium Zoom Next website
 
-> Source code for the [Medium Zoom Next website](https://medium-zoom.francoischalifour.com).
+> Source code for the [Medium Zoom Next website](https://medium-zoom-next.vercel.app).
 
 ## Storybook
 
-📚 The storybook is available at [medium-zoom.francoischalifour.com/storybook](https://medium-zoom.francoischalifour.com/storybook).
+📚 The storybook is available at [medium-zoom-next-storybook.vercel.app](https://medium-zoom-next-storybook.vercel.app/).
 
 ## Dev
 

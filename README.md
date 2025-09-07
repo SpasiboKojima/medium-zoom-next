@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://medium-zoom.francoischalifour.com"><img src="logo.svg" alt="Demo" width="64"></a>
+  <a href="https://medium-zoom-next.vercel.app"><img src="logo.svg" alt="Demo" width="64"></a>
   <h3 align="center">medium-zoom-next</h3>
   <p align="center">A JavaScript library for zooming images like Medium</p>
 </p>
@@ -24,15 +24,15 @@
 </p>
 
 <p align="center">
-  <a href="https://medium-zoom.francoischalifour.com">
+  <a href="https://medium-zoom-next.vercel.app">
     <img src="https://user-images.githubusercontent.com/6137112/43369906-7623239a-9376-11e8-978b-6e089be499fb.gif" alt="Medium Zoom Demo">
   </a>
   <br>
   <br>
   <strong>
   <a href="https://codesandbox.io/s/github/francoischalifour/medium-zoom/tree/master/website">🔬 Playground</a> ・
-  <a href="https://medium-zoom.francoischalifour.com">🔎 Demo</a> ・
-  <a href="https://medium-zoom.francoischalifour.com/storybook">📚 Storybook</a>
+  <a href="https://medium-zoom-next.vercel.app">🔎 Demo</a> ・
+  <a href="https://medium-zoom-next-storybook.vercel.app/">📚 Storybook</a>
   </strong>
 </p>
 
@@ -402,10 +402,10 @@ The zoom object is accessible in `event.detail.zoom`.
 
 Medium Zoom is a JavaScript library that can be used with any framework. Here are some integrations that you can use to get started quickly:
 
-- [React](./apps/examples/react)
-- [React Markdown](./apps/examples/react-markdown)
-- [Vue](./apps/examples/vue)
-- [Svelte](./apps/examples/svelte)
+- [React](./apps/website/src/components/react)
+- [React Markdown](./apps/website/src/components/react)
+- [Vue](./apps/website/src/components/vue)
+- [Svelte](./apps/website/src/components/svelte)
 
 ## Examples
 
@@ -483,7 +483,7 @@ export function ImageZoom({ options, ...props }) {
 </details>
 <br>
 
-You can see [more examples here](apps/examples/), or check out the [storybook](https://medium-zoom.francoischalifour.com/storybook).
+You can see [more examples here](apps/website/src/components/), or check out the [storybook](https://medium-zoom-next-storybook.vercel.app/).
 
 ## Debugging
 

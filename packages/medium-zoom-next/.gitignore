@@ -2,6 +2,7 @@
 /coverage
 /dist
 /storybook
+/storybook-static
 
 .DS_Store
 package-lock.json
