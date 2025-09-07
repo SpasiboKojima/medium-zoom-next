@@ -13,10 +13,8 @@
 		"url": "https://francoischalifour.com"
 	},
 	"scripts": {
-		"start": "bun run dev",
-		"dev": "rollup --config --watch",
 		"format": "biome check --write",
-		"build:website": "(cd website && bun && bun run build) && bun run build && bun run build:storybook",
+		"build:website": "bun --filter medium-zoom-next build && (cd apps/website && bun run build)",
 		"changelog:update": "conventional-changelog -p angular -i CHANGELOG.md -s",
 		"release": "release-it",
 		"release:next": "release-it --preRelease=next"
