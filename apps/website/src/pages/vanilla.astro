@@ -1,24 +1,14 @@
 ---
+import 'medium-zoom-next/dist/style.css';
+import VanillaPage from '~/components/vanilla/VanillaPage.astro';
 import background from '../assets/background.svg';
 import Layout from '../layouts/Layout.astro';
-import 'medium-zoom-next/dist/style.css';
 ---
 
 <Layout>
   <img id='background' src={background.src} alt='' fetchpriority='high' />
 
-  <article class='container'>
-    <h1>Vanilla JavaScript demo</h1>
-
-    <img src='images/image-1.jpg' alt='Zoom 1' />
-
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora praesentium cupiditate fugit voluptas, rem eligendi, voluptatem
-      molestias pariatur atque amet, dicta, similique beatae optio quos! Hic necessitatibus dicta magni, tempore.
-    </p>
-
-    <img src='images/image-2.jpg' alt='Zoom 2' />
-  </article>
+  <VanillaPage />
 </Layout>
 <style>
   #background {
@@ -31,8 +21,3 @@ import 'medium-zoom-next/dist/style.css';
     filter: blur(100px);
   }
 </style>
-<script>
-  import mediumZoom from 'medium-zoom-next';
-
-  mediumZoom('.container img');
-</script>
