@@ -1,6 +1,6 @@
-# Contributing to Medium Zoom
+# Contributing to Medium Zoom Next
 
-Thank you for getting involved in Medium Zoom!
+Thank you for getting involved in Medium Zoom Next!
 
 ## Concept
 
@@ -8,12 +8,28 @@ This module is meant to reproduce the zoom from [Medium](http://medium.com). We 
 
 ## Folder structure
 
-```
-▸ examples          The Medium Zoom featured examples available on CodeSandbox
-▸ src               The source code of the module
-  ▸ __tests__       The tests for the module API
-▸ stories           The stories for the Medium Zoom Storybook
-▸ website           The Medium Zoom website source code
+```js
+apps
+├── website // Website and examples source code
+│   ├── src
+│   │   ├── components  //Examples of various framework instegrations
+│   │   ├── layouts
+│   │   ├── pages
+│   │   │   ╰── index.astro //Entry point for the website, main page
+│   │   ╰── styles
+│   ╰── // config files
+packages
+├── meidum-zoom-next //medium-zoom-next package
+│   ├── .storybook //Storybook config and story files
+│   ├── src
+│   │   ├── __test__  //Test suits
+│   │   ├── index.ts
+│   │   ├── medium-zoom.css
+│   │   ├── medium-zoom.ts  //Primary code
+│   │   ├── types.ts
+│   │   ╰── utils.ts
+│   ╰── // config files
+╰── // config files
 ```
 
 ## Requirements
@@ -35,7 +51,7 @@ type(scope): description
 
 ### Filing issues
 
-Reporting a bug or requesting a feature is always welcome. Feel free to [open an issue](https://github.com/francoischalifour/medium-zoom/issues/new/choose) with the according template which helps you create an effective report.
+Reporting a bug or requesting a feature is always welcome. Feel free to [open an issue](https://github.com/spasibokojima/medium-zoom-next/issues/new/choose) with the according template which helps you create an effective report.
 
 ### Submit code
 
@@ -50,15 +66,15 @@ After discussing in an issue about the need to change the code, you will need to
   - Run `bun run format`
 - For a **bug fix**:
   - Create a branch `fix/issue-number`
-  - [Write a test](src/__tests__/medium-zoom.test.js) to reproduce the bug (run `bun run test`)
-  - Fix the bug in the [source code](src/medium-zoom.js)
+  - [Write a test](packages/medium-zoom-next/src/__tests__/medium-zoom.test.js) to reproduce the bug (run `bun run test`)
+  - Fix the bug in the [source code](packages/medium-zoom-next/src/medium-zoom.ts)
   - Make your test pass the previous bug
   - Run `bun run format` and fix problems if any
 - For a **feature**:
   - Create a branch `feat/name-of-the-feature`
-  - Add the feature to the [source code](src/medium-zoom.js)
-  - Create a story in the [storybook](stories) showcasing the feature
-  - [Write a test](src/__tests__/medium-zoom.test.js) to ensure it's working as expected (run `bun run test`)
+  - Add the feature to the [source code](packages/medium-zoom-next/src/medium-zoom.ts)
+  - Create a story in the [storybook](packages/medium-zoom-next/.storybook) showcasing the feature
+  - [Write a test](packages/medium-zoom-next/src/__tests__/medium-zoom.test.js) to ensure it's working as expected (run `bun run test`)
   - Run `bun run format` and fix problems if any
 - [Create a pull request](https://help.github.com/articles/creating-a-pull-request/)
 
@@ -68,7 +84,7 @@ We will then review your pull request!
 
 #### Unit and integration tests
 
-[Unit and integration tests](src/__tests__) with [Vitest](https://vitest.dev/) ensure that the API works as documented.
+[Unit and integration tests](packages/medium-zoom-next/src/__tests__) with [Vitest](https://vitest.dev/) ensure that the API works as documented.
 
 ###### Commands
 
