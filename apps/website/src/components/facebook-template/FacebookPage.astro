@@ -1,0 +1,97 @@
+---
+import 'medium-zoom-next/dist/style.css';
+---
+
+<div>
+  <template id='template-facebook'>
+    <div class='facebook-wrapper'>
+      <svg class='facebook-close' data-zoom-close viewBox='0 0 24 24'>
+        <path
+          d='M8.817 7.403a1 1 0 0 0-1.414 1.414L10.586 12l-3.183 3.183a1 1 0 0 0 1.414 1.415L12 13.415l3.183 3.183a1 1 0 0 0 1.415-1.415L13.415 12l3.183-3.183a1 1 0 0 0-1.415-1.414L12 10.586 8.817 7.403z'
+          fill-rule='evenodd'></path>
+      </svg>
+      <section class='facebook-main' data-zoom-container></section>
+      <aside class='facebook-sidebar'></aside>
+    </div>
+  </template>
+
+  <article class='container'>
+    <h1>Facebook Demo</h1>
+
+    <img src='images/image-1.jpg' alt='Zoom 1 with Facebook template' />
+
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora praesentium cupiditate fugit voluptas, rem eligendi, voluptatem
+      molestias pariatur atque amet, dicta, similique beatae optio quos! Hic necessitatibus dicta magni, tempore.
+    </p>
+
+    <img src='images/image-2.jpg' alt='Zoom 2 with Facebook template' />
+  </article>
+</div>
+<style>
+  .facebook-wrapper {
+    position: fixed;
+    top: 0;
+    right: 4rem;
+    bottom: 0;
+    left: 4rem;
+    display: flex;
+    height: 520px;
+    margin: auto;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .facebook-main {
+    flex: 1;
+    height: 100%;
+    background-color: #000;
+  }
+
+  .facebook-sidebar {
+    width: 360px;
+    padding: 32px 0 16px 0;
+    background-color: #fff;
+  }
+
+  @media (max-width: 800px) {
+    .facebook-sidebar {
+      display: none;
+    }
+  }
+
+  .facebook-close {
+    position: fixed;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    cursor: pointer;
+    fill: #ddd;
+  }
+
+  :global(.medium-zoom-overlay) {
+    background: rgba(0, 0, 0, 0.9);
+  }
+</style>
+<script>
+  import mediumZoom from 'medium-zoom-next';
+
+  const zoomFacebook = mediumZoom('.container img', {
+    template: '#template-facebook',
+    container: '[data-zoom-container]',
+  });
+
+  // You can start manipulating the DOM after the `opened` event has been triggered
+  zoomFacebook.on('opened', () => {
+    const closeButton = document.querySelector('[data-zoom-close]');
+    closeButton?.addEventListener('click', () => zoomFacebook.close());
+  });
+
+  // Block scroll on zoom
+  zoomFacebook.on('open', () => {
+    document.body.style.overflow = 'hidden';
+  });
+
+  zoomFacebook.on('close', () => {
+    document.body.style.overflow = '';
+  });
+</script>

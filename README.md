@@ -1,38 +1,38 @@
 <p align="center">
-  <a href="https://medium-zoom.francoischalifour.com"><img src="logo.svg" alt="Demo" width="64"></a>
-  <h3 align="center">medium-zoom</h3>
+  <a href="https://medium-zoom-next.vercel.app"><img src="logo.svg" alt="Demo" width="64"></a>
+  <h3 align="center">medium-zoom-next</h3>
   <p align="center">A JavaScript library for zooming images like Medium</p>
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/medium-zoom">
-    <img src="https://img.shields.io/npm/v/medium-zoom.svg?style=flat-square" alt="version">
+  <a href="https://www.npmjs.com/package/@spasibokojima/medium-zoom">
+    <img alt="NPM Version" src="https://img.shields.io/npm/v/%40spasibokojima%2Fmedium-zoom?color=%231968cb">
   </a>
-  <a href="https://github.com/francoischalifour/medium-zoom/blob/master/LICENSE">
-    <img src="https://img.shields.io/npm/l/medium-zoom.svg?style=flat-square" alt="MIT license">
+  <a href="https://github.com/SpasiboKojima/medium-zoom/blob/master/LICENSE">
+    <img alt="GitHub License" src="https://img.shields.io/github/license/SpasiboKojima/medium-zoom?color=%231968cb">
   </a>
-  <a href="http://npmcharts.com/compare/medium-zoom">
-    <img src="https://img.shields.io/npm/dm/medium-zoom.svg?style=flat-square" alt="downloads">
+  <a href="https://www.npmcharts.com/compare/@spasibokojima/medium-zoom">
+    <img alt="NPM Downloads" src="https://img.shields.io/npm/d18m/%40spasibokojima%2Fmedium-zoom?color=%231968cb">
   </a>
   <br>
-  <a href="https://unpkg.com/medium-zoom/dist/">
-    <img src="http://img.badgesize.io/https://unpkg.com/medium-zoom/dist/medium-zoom.min.js?compression=gzip&label=gzip%20size&style=flat-square" alt="gzip size">
+  <a href="https://unpkg.com/@spasibokojima/medium-zoom/dist/">
+    <img alt="npm package minimized gzipped size" src="https://img.shields.io/bundlejs/size/%40spasibokojima%2Fmedium-zoom?color=%231968cb">
   </a>
-  <a href="https://github.com/francoischalifour/medium-zoom/blob/master/package.json">
-    <img src="https://img.shields.io/badge/dependencies-none-lightgrey.svg?style=flat-square" alt="no dependencies">
+  <a href="https://github.com/SpasiboKojima/medium-zoom/blob/master/packages/medium-zoom/package.json">
+    <img src="https://img.shields.io/badge/dependencies-none-lightgrey.svg?color=%231968cb" alt="no dependencies">
   </a>
 </p>
 
 <p align="center">
-  <a href="https://medium-zoom.francoischalifour.com">
+  <a href="https://medium-zoom-next.vercel.app">
     <img src="https://user-images.githubusercontent.com/6137112/43369906-7623239a-9376-11e8-978b-6e089be499fb.gif" alt="Medium Zoom Demo">
   </a>
   <br>
   <br>
   <strong>
   <a href="https://codesandbox.io/s/github/francoischalifour/medium-zoom/tree/master/website">🔬 Playground</a> ・
-  <a href="https://medium-zoom.francoischalifour.com">🔎 Demo</a> ・
-  <a href="https://medium-zoom.francoischalifour.com/storybook">📚 Storybook</a>
+  <a href="https://medium-zoom-next.vercel.app">🔎 Demo</a> ・
+  <a href="https://medium-zoom-next-storybook.vercel.app/">📚 Storybook</a>
   </strong>
 </p>
 
@@ -89,20 +89,18 @@ The module is available on the [npm](https://www.npmjs.com) registry.
 
 ```sh
 npm install medium-zoom
-# or
-yarn add medium-zoom
 ```
 
 ###### Download
 
-- [Normal](https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.js)
-- [Minified](https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js)
+- [Normal](https://cdn.jsdelivr.net/npm/@spasibokojima/medium-zoom/dist/medium-zoom.js)
+- [Minified](https://cdn.jsdelivr.net/npm/@spasibokojima/medium-zoom/dist/medium-zoom.min.js)
 
 ###### CDN
 
-- [jsDelivr](https://www.jsdelivr.com/package/npm/medium-zoom)
-- [unpkg](https://unpkg.com/medium-zoom/)
-- [esm.sh](https://esm.sh/medium-zoom)
+- [jsDelivr](https://www.jsdelivr.com/package/npm/@spasibokojima/medium-zoom)
+- [unpkg](https://unpkg.com/@spasibokojima/medium-zoom/)
+- [esm.sh](https://esm.sh/@spasibokojima/medium-zoom/)
 
 ## Usage
 
@@ -112,29 +110,22 @@ Import the library as a module:
 
 ```js
 import mediumZoom from 'medium-zoom'
+import 'medium-zoom/dist/style.css'
 ```
 
 Or import the library with a script tag:
 
 ```html
 <script src="node_modules/medium-zoom/dist/medium-zoom.min.js"></script>
+<link href="node_modules/medium-zoom/dist/style.css" rel="stylesheet" />
 ```
 
-That's it! You don't need to import any CSS styles.
 
 Assuming you add the `data-zoomable` attribute to your images:
 
 ```js
 mediumZoom('[data-zoomable]')
 ```
-
-> [!TIP]
-> If you want to control when to inject the Medium Zoom CSS styles, you can use the pure JavaScript bundle:
->
-> ```js
-> import mediumZoom from 'medium-zoom/dist/pure'
-> import 'medium-zoom/dist/style.css'
-> ```
 
 ## API
 
@@ -177,7 +168,6 @@ The options enable the customization of the zoom. They are defined as an object 
 | Property       | Type                                  | Default  | Description                                                                 |
 | -------------- | ------------------------------------- | -------- | --------------------------------------------------------------------------- |
 | `margin`       | `number`                              | `0`      | The space outside the zoomed image                                          |
-| `background`   | `string`                              | `"#fff"` | The background of the overlay                                               |
 | `scrollOffset` | `number`                              | `40`     | The number of pixels to scroll to close the zoom                            |
 | `container`    | `string` \| `HTMLElement` \| `object` | `null`   | The viewport to render the zoom in<br> [Read more →](docs/container.md)     |
 | `template`     | `string` \| `HTMLTemplateElement`     | `null`   | The template element to display on zoom<br> [Read more →](docs/template.md) |
@@ -185,11 +175,18 @@ The options enable the customization of the zoom. They are defined as an object 
 ```js
 mediumZoom('[data-zoomable]', {
   margin: 24,
-  background: '#BADA55',
   scrollOffset: 0,
   container: '#zoom-container',
   template: '#zoom-template',
 })
+```
+
+You can also override provided styles with your own CSS, to customize things like the background of overlay.
+
+```css
+.medium-zoom-overlay {
+	background: #BADA55;
+}
 ```
 
 ### Methods
@@ -205,6 +202,19 @@ zoom.open()
 ```
 
 _Emits an event [`open`](#events) on animation start and [`opened`](#events) when completed._
+
+#### `change({ target?: HTMLElement }): Promise<Zoom>`
+
+Changes the currently zoomed image and returns a promise resolving with the zoom. Useful for implementing carousels and changing images from the keyboard.
+
+```js
+const zoom = mediumZoom('[data-zoomable]')
+
+zoom.open({ target: document.querySelector('#image-1') })
+zoom.change({ target: document.querySelector('#image-2') })
+```
+
+_Emits an event [`changed`](#events) on change complete._
 
 #### `close(): Promise<Zoom>`
 
@@ -262,7 +272,7 @@ Updates the options and returns the zoom.
 ```js
 const zoom = mediumZoom('[data-zoomable]')
 
-zoom.update({ background: '#BADA55' })
+zoom.update({ margin: 32 })
 ```
 
 _Emits an event [`update`](#events) on each image of the zoom._
@@ -272,14 +282,14 @@ _Emits an event [`update`](#events) on each image of the zoom._
 Clones the zoom with provided options merged with the current ones and returns the zoom.
 
 ```js
-const zoom = mediumZoom('[data-zoomable]', { background: '#BADA55' })
+const zoom = mediumZoom('[data-zoomable]', { container: '#zoom-container' })
 
 const clonedZoom = zoom.clone({ margin: 48 })
 
-clonedZoom.getOptions() // => { background: '#BADA55', margin: 48, ... }
+clonedZoom.getOptions() // => { container: '#zoom-container', margin: 48, ... }
 ```
 
-#### `on(type: string, listener: () => void, options?: boolean | AddEventListenerOptions): Zoom`
+#### `on(type: ZoomEvent, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): Zoom`
 
 Registers the listener on each target of the zoom.
 
@@ -303,7 +313,7 @@ zoom.on(
 
 The zoom object is accessible in `event.detail.zoom`.
 
-#### `off(type: string, listener: () => void, options?: boolean | AddEventListenerOptions): Zoom`
+#### `off(type: ZoomEvent, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): Zoom`
 
 Removes the previously registered listener on each target of the zoom.
 
@@ -328,9 +338,9 @@ The zoom object is accessible in `event.detail.zoom`.
 Returns the zoom options as an object.
 
 ```js
-const zoom = mediumZoom({ background: '#BADA55' })
+const zoom = mediumZoom({ container: '#zoom-container' })
 
-zoom.getOptions() // => { background: '#BADA55', ... }
+zoom.getOptions() // => { container: '#zoom-container', ... }
 ```
 
 #### `getImages(): HTMLElement[]`
@@ -368,14 +378,15 @@ Specifies the high definition image to open on zoom. This image loads when the u
 
 ### Events
 
-| Event  | Description                                         |
-| ------ | --------------------------------------------------- |
-| open   | Fired immediately when the `open` method is called  |
-| opened | Fired when the zoom has finished being animated     |
-| close  | Fired immediately when the `close` method is called |
-| closed | Fired when the zoom out has finished being animated |
-| detach | Fired when the `detach` method is called            |
-| update | Fired when the `update` method is called            |
+| Event   | Description                                         |
+| ------- | --------------------------------------------------- |
+| open    | Fired immediately when the `open` method is called  |
+| opened  | Fired when the zoom has finished being animated     |
+| close   | Fired immediately when the `close` method is called |
+| closed  | Fired when the zoom out has finished being animated |
+| detach  | Fired when the `detach` method is called            |
+| update  | Fired when the `update` method is called            |
+| changed | Fired when the image change has finished            |
 
 ```js
 const zoom = mediumZoom('[data-zoomable]')
@@ -391,10 +402,10 @@ The zoom object is accessible in `event.detail.zoom`.
 
 Medium Zoom is a JavaScript library that can be used with any framework. Here are some integrations that you can use to get started quickly:
 
-- [React](./examples/react)
-- [React Markdown](./examples/react-markdown)
-- [Vue](./examples/vue)
-- [Svelte](./examples/svelte)
+- [React](./apps/website/src/components/react)
+- [React Markdown](./apps/website/src/components/react)
+- [Vue](./apps/website/src/components/vue)
+- [Svelte](./apps/website/src/components/svelte)
 
 ## Examples
 
@@ -438,17 +449,6 @@ zoom.on('closed', () => zoom.detach(), { once: true })
 </details>
 
 <details>
- <summary>Attach jQuery elements</summary>
-
-jQuery elements are compatible with `medium-zoom` once converted to an array.
-
-```js
-mediumZoom($('[data-zoomable]').toArray())
-```
-
-</details>
-
-<details>
  <summary>Create a zoomable React component</summary>
 
 ```js
@@ -483,7 +483,7 @@ export function ImageZoom({ options, ...props }) {
 </details>
 <br>
 
-You can see [more examples](examples/) including [React](examples/react) and [Vue](examples/vue), or check out the [storybook](https://medium-zoom.francoischalifour.com/storybook).
+You can see [more examples here](apps/website/src/components/), or check out the [storybook](https://medium-zoom-next-storybook.vercel.app/).
 
 ## Debugging
 
@@ -502,11 +502,9 @@ If that's the case, you can provide a `z-index` value in your CSS:
 
 ## Browser support
 
-| IE              | Edge            | Chrome | Firefox | Safari |
-| --------------- | --------------- | ------ | ------- | ------ |
-| 10<sup>\*</sup> | 12<sup>\*</sup> | 36     | 34      | 9      |
-
-<sup>\*</sup> _These browsers require a [`template` polyfill](https://github.com/webcomponents/template) when using [custom templates](docs/template.md)_.
+| Edge            | Chrome | Firefox | Safari |
+| --------------- | ------ | ------- | ------ |
+| 138             | 109    | 140     | 15.6   |
 
 <blockquote>
   <p align="center">
@@ -521,13 +519,11 @@ If that's the case, you can provide a `z-index` value in your CSS:
 
 ## Contributing
 
-- Run `yarn` to install Node dev dependencies
-- Run `yarn start` to build the library in watch mode
-- Run `yarn run storybook` to see your changes at http://localhost:9001
+- Run `bun` to install Node dev dependencies
+- Run `bun start` to build the library in watch mode
+- Run `bun run storybook` to see your changes at http://localhost:6006
 
 Please read the [contributing guidelines](CONTRIBUTING.md) for more detailed explanations.
-
-_You can also use [npm](https://www.npmjs.com)._
 
 ## License
 

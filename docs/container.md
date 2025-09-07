@@ -18,7 +18,7 @@ The zoom is by default rendered in the window viewport. You can also render your
 </script>
 ```
 
-[Check the example →](https://medium-zoom.francoischalifour.com/storybook/?selectedKind=options&selectedStory=container%20%28DOM%20element%29)
+[Check the example →](https://medium-zoom-next-storybook.vercel.app/?path=/story/options--container-dom-element)
 
 ## Rendering with coordinates
 
@@ -41,4 +41,4 @@ These properties behave very much like [`Element.getBoundingClientRect()`](https
 
 The default `width` and `height` are `window.innerWidth` and `window.innerHeight`. Others are set to `0`.
 
-[Check the example →](https://medium-zoom.francoischalifour.com/storybook/?selectedKind=options&selectedStory=container%20%28coordinates%20object%29)
+[Check the example →](https://medium-zoom-next-storybook.vercel.app/?path=/story/options--container-coordinates)

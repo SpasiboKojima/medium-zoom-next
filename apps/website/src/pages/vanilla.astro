@@ -1,0 +1,23 @@
+---
+import 'medium-zoom-next/dist/style.css';
+import VanillaPage from '~/components/vanilla/VanillaPage.astro';
+import background from '../assets/background.svg';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <img id='background' src={background.src} alt='' fetchpriority='high' />
+
+  <VanillaPage />
+</Layout>
+<style>
+  #background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: blur(100px);
+  }
+</style>

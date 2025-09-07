@@ -1,0 +1,350 @@
+---
+import 'medium-zoom-next/dist/style.css';
+import background from '../assets/background.svg';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout>
+  <main id='container'>
+    <img id='background' src={background.src} alt='' fetchpriority='high' />
+
+    <div class='hero'>
+      <div class='hero-content text-center'>
+        <div class='max-w-md'>
+          <h1 class='text-5xl font-bold'>Medium Zoom Next</h1>
+          <p class='py-6'>A JavaScript library for zooming images like Medium</p>
+          <div class='flex gap-4 justify-center'>
+            <a href='https://github.com/SpasiboKojima/medium-zoom-next' target='_blank' rel='noopener noreferrer' class='btn btn-primary'
+              >View on GitHub</a
+            >
+            <a href='https://francoischalifour.com/lab/medium-image-zoom' target='_blank' rel='noopener noreferrer' class='btn btn-primary'
+              >Read the article</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <article class='container'>
+      <figure>
+        <img id='zoom-default' src='images/image-1.jpg' alt='Zoom with default options' />
+        <figcaption>Zoom with default options</figcaption>
+      </figure>
+
+      <p class='placeholder'>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora praesentium cupiditate fugit voluptas, rem eligendi, voluptatem
+        molestias pariatur atque amet, dicta, similique beatae optio quos! Hic necessitatibus dicta magni, tempore. Atque illo voluptatibus
+        fugiat id pariatur cum quasi vel ut repellendus iure quaerat, doloremque sit voluptatum odio maiores provident consequuntur
+        accusantium saepe.
+      </p>
+
+      <figure>
+        <img id='zoom-margin' src='images/image-2.jpg' alt='Zoom with margin' />
+        <figcaption>Zoom with margin</figcaption>
+      </figure>
+
+      <p class='placeholder'>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea dolores quaerat, quis modi nostrum sequi adipisci ratione esse
+        blanditiis error beatae vel non vero dolor nemo. Animi nemo quisquam ducimus!
+      </p>
+
+      <figure>
+        <img id='zoom-background' src='images/image-3.jpg' alt='Zoom with background color' />
+        <figcaption>Zoom with background color</figcaption>
+      </figure>
+
+      <p class='placeholder'>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos magnam illo, quam iusto, autem ratione commodi deleniti vero
+        magni fuga consectetur expedita, voluptatum enim quidem? Rem, minima laboriosam hic! Id.
+      </p>
+
+      <figure class='pull-right'>
+        <img id='zoom-scrollOffset' src='images/image-4.jpg' alt='Zoom without scroll effect' />
+        <figcaption>Zoom without scroll offset</figcaption>
+      </figure>
+
+      <p class='placeholder'>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus cum nulla eligendi recusandae at quae odio, harum nesciunt ut
+        temporibus vitae, laudantium minus. Iste officia aliquid, laborum ratione maxime beatae.
+      </p>
+
+      <p class='placeholder'>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim asperiores totam fugiat repellendus laboriosam accusantium, possimus
+        similique quos repellat molestias excepturi ad perspiciatis beatae! Qui repellat numquam incidunt, accusamus autem.
+      </p>
+
+      <p class='placeholder'>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti provident sunt recusandae enim commodi ab dolorem ipsum dolor
+        magni reprehenderit accusantium quasi a autem neque asperiores, tenetur impedit repudiandae quos.
+      </p>
+
+      <p class='placeholder'>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus cum nulla eligendi recusandae at quae odio, harum nesciunt ut
+        temporibus vitae, laudantium minus. Iste officia aliquid, laborum ratione maxime beatae, tenetur impedit repudiandae quos.
+      </p>
+
+      <figure>
+        <img id='zoom-trigger' src='images/image-6.jpg' alt='Zoom to trigger' />
+        <figcaption>
+          <figcaption>Zoom triggered with another element</figcaption>
+          <button id='button-trigger' class='btn btn-outline'>Trigger zoom</button>
+        </figcaption>
+      </figure>
+
+      <p class='placeholder'>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti provident sunt recusandae enim commodi ab dolorem ipsum dolor
+        magni reprehenderit accusantium quasi a autem neque asperiores, tenetur impedit repudiandae quos.
+      </p>
+
+      <figure>
+        <img id='zoom-detach' src='images/image-7.jpg' alt='Zoom detached after being zoomed once' />
+        <figcaption>Zoom detached after having been zoomed once</figcaption>
+      </figure>
+
+      <h2>History</h2>
+
+      <blockquote class='bg-base-300'>
+        <p>Interactions with the images are logged here.</p>
+
+        <ol id='history'></ol>
+      </blockquote>
+
+      <aside>
+        <h2>Getting started</h2>
+
+        <pre class='bg-gray-900 text-white'><code>npm install medium-zoom-next</code></pre>
+
+        <p class='text-center'>
+          <a
+            href='https://github.com/spasibokojima/medium-zoom-next#usage'
+            target='_blank'
+            rel='noopener noreferrer'
+            class='btn btn-primary btn-lg'>Learn how to use the library →</a
+          >
+        </p>
+      </aside>
+    </article>
+  </main>
+
+  <footer class='flex flex-col items-center gap-8 py-16 px-6'>
+    <div class='flex gap-4 justify-center'>
+      <a href='https://github.com/spasibokojima/medium-zoom-next' target='_blank' rel='noopener noreferrer' class='btn btn-outline'
+        >View on GitHub</a
+      >
+      <a href='http://francoischalifour.com/lab/medium-image-zoom' target='_blank' rel='noopener noreferrer' class='btn btn-outline'
+        >Read the article</a
+      >
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  #background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: blur(100px);
+  }
+
+  h1 {
+    margin-bottom: 2rem;
+    font-size: 4rem;
+  }
+
+  h2 {
+    margin: 2rem 0 1rem 0;
+    font-size: 2rem;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  .placeholder {
+    max-width: 740px;
+    margin: 24px auto;
+    font-family: sans-serif;
+    text-align: justify;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  :global(.placeholder__word) {
+    font-size: 0.9rem;
+    color: rgb(155, 155, 155);
+    letter-spacing: 0.2rem;
+    background: rgb(155, 155, 155);
+    border-radius: 3px;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1000px;
+    padding: 16px;
+    margin: 48px auto;
+  }
+
+  .container p {
+    line-height: 1.6;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  button.button,
+  .button {
+    display: inline-block;
+    padding: 16px 32px;
+    margin: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 32px;
+    box-shadow: 0 2px 6px 0 rgba(0, 171, 108, 0.32);
+    transition: all 300ms;
+  }
+
+  .button:hover,
+  button.button:hover {
+    box-shadow: 0 2px 8px 0 rgba(0, 171, 108, 0.64);
+  }
+
+  .button.button--action {
+    background: linear-gradient(#7c4dff 0%, #6200ea 100%);
+    box-shadow: 0 2px 6px 0 rgba(98, 0, 234, 0.32);
+  }
+
+  .button.button--action:hover {
+    box-shadow: 0 2px 8px 0 rgba(98, 0, 234, 0.64);
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  figure {
+    margin: 3rem -16px;
+    text-align: center;
+  }
+
+  figcaption {
+    margin: 1rem;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.5rem;
+    /* color: #666; */
+    text-align: center;
+  }
+
+  blockquote {
+    display: block;
+    padding: 24px;
+    border-radius: 4px;
+  }
+
+  blockquote li {
+    padding-top: 16px;
+  }
+
+  blockquote li::before {
+    content: '▹ ';
+  }
+
+  pre {
+    padding: 24px;
+    margin: 2rem 0;
+    font-family: Monaco, Consolas, Menlo, monospace;
+    font-size: 1rem;
+    border-radius: 4px;
+  }
+
+  @media (min-width: 1000px) {
+    .pull-left,
+    .pull-right {
+      width: 400px;
+      margin: 3rem;
+    }
+
+    .pull-right {
+      float: right;
+      margin-right: -16px;
+    }
+
+    .pull-left {
+      float: left;
+      margin-left: -16px;
+    }
+  }
+
+  .custom-background {
+    .medium-zoom-overlay {
+      background: rgba(70, 40, 70, 0.9);
+    }
+  }
+</style>
+<script>
+  import mediumZoom from 'medium-zoom-next';
+
+  const zoomDefault = mediumZoom('#zoom-default');
+  const zoomMargin = mediumZoom('#zoom-margin', { margin: 48 });
+  const zoomBackground = mediumZoom('#zoom-background');
+  const zoomScrollOffset = mediumZoom('#zoom-scrollOffset', { scrollOffset: 0 });
+
+  // Trigger the zoom when the button is clicked
+  const zoomToTrigger = mediumZoom('#zoom-trigger');
+  const button = document.querySelector('#button-trigger');
+  button?.addEventListener('click', () => zoomToTrigger.open());
+
+  // Detach the zoom after having been zoomed once
+  const zoomToDetach = mediumZoom('#zoom-detach');
+  zoomToDetach.on('closed', () => zoomToDetach.detach());
+
+  // Observe zooms to write the history
+  const observedZooms = [zoomDefault, zoomMargin, zoomBackground, zoomScrollOffset, zoomToTrigger, zoomToDetach];
+
+  // Log all interactions in the history
+  const history = document.querySelector('#history');
+
+  observedZooms.forEach((zoom) => {
+    zoom.on('open', (event) => {
+      if (history) {
+        const time = new Date().toLocaleTimeString();
+        history.innerHTML += `<li>Image "<em>${(event.target as HTMLImageElement).alt}</em>" was zoomed at ${time}</li>`;
+      }
+
+      if ((event.target as HTMLImageElement).id === 'zoom-background') {
+        document.body.classList.add('custom-background');
+      } else {
+        document.body.classList.remove('custom-background');
+      }
+    });
+
+    zoom.on('detach', (event) => {
+      if (!history) return;
+      const time = new Date().toLocaleTimeString();
+      history.innerHTML += `<li>Image <em>"${(event.target as HTMLImageElement).alt}"</em> was detached at ${time}</li>`;
+    });
+  });
+
+  // Show placeholders for paragraphs
+  const paragraphs = Array.from(document.querySelectorAll('p.placeholder'));
+
+  paragraphs.forEach((paragraph) => {
+    // eslint-disable-next-line no-param-reassign
+    paragraph.innerHTML = paragraph.textContent
+      .split(' ')
+      .filter((text) => text.length > 4)
+      .map((text) => `<span class="placeholder__word">${text}</span>`)
+      .join(' ');
+  });
+</script>

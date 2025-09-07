@@ -1,0 +1,53 @@
+---
+import '~/styles/index.css';
+import ThemeController from '~/components/ThemeController.astro';
+
+const links = [
+  { href: '/react', text: 'React' },
+  { href: '/react-markdown', text: 'React Markdown' },
+  { href: '/solid', text: 'Solid' },
+  { href: '/svelte', text: 'Svelte' },
+  { href: '/vue', text: 'Vue' },
+  { href: '/facebook', text: 'Facebook Template' },
+  { href: '/dropbox', text: 'Dropbox Paper' },
+];
+---
+
+<!doctype html>
+<html data-theme='light' lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='generator' content={Astro.generator} />
+    <title>Astro Basics</title>
+  </head>
+  <body class='pt-16'>
+    <header class='fixed top-0 z-10 navbar bg-base-100 shadow-sm'>
+      <div class='flex-1'>
+        <a href='/' class='btn btn-ghost text-xl'>Medium Zoom Next</a>
+      </div>
+      <div class='flex items-center gap-4'>
+        <ul class='menu menu-horizontal px-1'>
+          <li><a href='https://medium-zoom-next-storybook.vercel.app/' target='_blank' rel='noopener noreferrer'>Storybook</a></li>
+          <li>
+            <details class='dropdown'>
+              <summary>Examples</summary>
+              <ul class='menu dropdown-content bg-base-100 rounded-t-none p-2'>
+                {
+                  links.map((link) => (
+                    <li>
+                      <a href={link.href}>{link.text}</a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </details>
+          </li>
+        </ul>
+        <ThemeController />
+      </div>
+    </header>
+    <slot />
+  </body>
+</html>

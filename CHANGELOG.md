@@ -1,3 +1,31 @@
+# [2.0.0](https://github.com/SpasiboKojima/medium-zoom/compare/1.1.0...2.0.0) (2025-09-07)
+
+
+* refactor!: remove deprecated and linted code ([2f8762e](https://github.com/SpasiboKojima/medium-zoom/commit/2f8762e38ecd532b952702d1da2f2527b7d21428))
+* build!: replace cssnano with lightningcss and process CSS separately ([5cc24f4](https://github.com/SpasiboKojima/medium-zoom/commit/5cc24f4c45c8b64ccf9ecb599c1109ec31b64a50))
+
+
+### Bug Fixes
+
+* blurry images in Safari ([f96c2ca](https://github.com/SpasiboKojima/medium-zoom/commit/f96c2ca2f3b67c23370ae3a77afa04635143e485))
+
+
+### Features
+
+* add change method to swap opened images ([a9fd88b](https://github.com/SpasiboKojima/medium-zoom/commit/a9fd88b37a6f5add43ba3df37e88d368913018e1))
+* add destroy method to remove all event listeners ([508b565](https://github.com/SpasiboKojima/medium-zoom/commit/508b5654c464ecc60bb1f47c24e60697812d8cc9))
+* respect prefers-reduced-motion ([69e2b29](https://github.com/SpasiboKojima/medium-zoom/commit/69e2b2962064ff0d5beb053f685f3c0692aaecd2))
+* update keyboard controls to close on Tab ([88fdc62](https://github.com/SpasiboKojima/medium-zoom/commit/88fdc626a72a2f9e079d88912bf80d107ae8aabb))
+* update touch controls to allow pinch-to-zoom ([bbfbfee](https://github.com/SpasiboKojima/medium-zoom/commit/bbfbfee30f1d441c22eb6435a1131c991120317f))
+
+
+### BREAKING CHANGES
+
+* drop IE11 support
+* stop importing CSS inside the JS bundle.
+
+
+
 # [1.1.0](https://github.com/francoischalifour/medium-zoom/compare/1.0.8...1.1.0) (2023-11-16)
 
 ### Features
