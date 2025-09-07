@@ -22,6 +22,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "2.2.2",
 		"conventional-changelog": "^7.1.1",
+		"conventional-changelog-angular": "^8.0.0",
 		"lefthook": "^1.12.3",
 		"release-it": "10.4.5"
 	}
