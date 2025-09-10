@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/medium-zoom-next">
-    <img alt="NPM Version" src="https://img.shields.io/npm/v/medium-zoom-next">
+    <img alt="NPM Version" src="https://img.shields.io/npm/v/medium-zoom-next?color=%231968cb">
   </a>
   <a href="https://github.com/SpasiboKojima/medium-zoom-next/blob/master/LICENSE">
     <img alt="GitHub License" src="https://img.shields.io/github/license/SpasiboKojima/medium-zoom-next?color=%231968cb">
@@ -503,9 +503,9 @@ If that's the case, you can provide a `z-index` value in your CSS:
 
 ## Browser support
 
-| Edge            | Chrome | Firefox | Safari |
-| --------------- | ------ | ------- | ------ |
-| 138             | 109    | 140     | 15.6   |
+| Edge   | Chrome | Firefox | Safari |
+| ------ | ------ | ------- | ------ |
+| 138    | 109    | 140     | 15.6   |
 
 <blockquote>
   <p align="center">
